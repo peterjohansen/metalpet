@@ -1,5 +1,7 @@
-# Java REST Skeleton
-A bare-bones Spring Boot project that can be be used as a template for a Java-based REST API.
+# Metalpet
+Metalpet is an application that performs file system operations described in a
+JSON file. Its original purpose was to initialize a Java project from a
+template by renaming the appropriate files and Java identifiers.
 
 ## Building
 ### Prerequisites
@@ -9,4 +11,3 @@ A bare-bones Spring Boot project that can be be used as a template for a Java-ba
 ### Instructions
 1. Clone this repository and navigate to its root directory
 2. Execute `mvn clean install` to build it
-3. Execute `mvn -pl java-rest-skeleton-web spring-boot:run` to start it
