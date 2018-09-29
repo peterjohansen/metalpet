@@ -20,7 +20,7 @@ import java.util.List;
  * @author Peter André Johansen
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonPropertyOrder({ "name" })
+@JsonPropertyOrder({ "name", "input", "operation" })
 public class Project implements Validatable {
 
 	private static final ImmutableList<UserInput> DEFAULT_USER_INPUT_LIST = ImmutableList.copyOf(Collections.emptyList());
@@ -34,7 +34,7 @@ public class Project implements Validatable {
 	@NotNull(message = "List of user inputs in the project cannot be undefined.")
 	private final ImmutableList<@NotNull @Valid UserInput> userInputList;
 
-	@JsonProperty
+	@JsonProperty("operation")
 	@NotNull(message = "List of operations in the project cannot be undefined.")
 	private final ImmutableList<@NotNull @Valid Operation> operations;
 
