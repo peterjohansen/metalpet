@@ -9,7 +9,7 @@ import org.pemacy.metalpet.model.Project;
 import org.pemacy.metalpet.model.file.FileTarget;
 import org.pemacy.metalpet.model.input.StandardInputType;
 import org.pemacy.metalpet.model.input.UserInput;
-import org.pemacy.metalpet.model.operation.DeleteDirectoryOperation;
+import org.pemacy.metalpet.model.operation.DeleteFilesOperation;
 import org.pemacy.metalpet.model.operation.FileNameSearchAndModifyOperation;
 import org.pemacy.metalpet.model.string.ReplaceStringModification;
 import org.pemacy.metalpet.service.ProjectService;
@@ -57,7 +57,7 @@ public class ProjectServiceTest {
 			"]," +
 			"\"operations\": [" +
 				"{" +
-					"\"type\": \"DELETE_DIRECTORY\"," +
+					"\"type\": \"DELETE_FILES\"," +
 					"\"report\": \"Deleting .git/ directory...\"," +
 					"\"targets\": [" +
 						"{" +
@@ -97,7 +97,7 @@ public class ProjectServiceTest {
 					)
 				),
 				Arrays.asList(
-					new DeleteDirectoryOperation(
+					new DeleteFilesOperation(
 						"Deleting .git/ directory...",
 						Collections.singletonList(new FileTarget(
 							".git/", null, null

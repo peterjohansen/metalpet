@@ -5,7 +5,7 @@ package org.pemacy.metalpet.model.operation;
  */
 public enum StandardOperationIdentifier implements OperationIdentifier {
 
-	DELETE_DIRECTORY,
+	DELETE_FILES,
 	FILE_NAME_SEARCH_AND_MODIFY
 
 }

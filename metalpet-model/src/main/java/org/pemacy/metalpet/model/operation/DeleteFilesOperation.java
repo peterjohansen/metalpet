@@ -19,13 +19,13 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "targets" })
-public class DeleteDirectoryOperation extends OperationBase implements Validatable {
+public class DeleteFilesOperation extends OperationBase implements Validatable {
 
 	@JsonProperty("targets")
 	@NotEmpty(message = "List of targets cannot be undefined or empty.")
 	private final ImmutableList<@NotNull @Valid FileTarget> targets;
 
-	public DeleteDirectoryOperation(String report, List<FileTarget> targets) {
+	public DeleteFilesOperation(String report, List<FileTarget> targets) {
 		super(report);
 		this.targets = ImmutableList.copyOf(targets);
 		validateAfterConstruction();
@@ -34,7 +34,7 @@ public class DeleteDirectoryOperation extends OperationBase implements Validatab
 	/**
 	 * For instantiation by reflection.
 	 */
-	private DeleteDirectoryOperation() {
+	private DeleteFilesOperation() {
 		super(null);
 		this.targets = null;
 	}
@@ -43,13 +43,13 @@ public class DeleteDirectoryOperation extends OperationBase implements Validatab
 	public boolean equals(Object o) {
 		if (this == o) { return true; }
 		if (o == null || getClass() != o.getClass()) { return false; }
-		final var other = (DeleteDirectoryOperation) o;
+		final var other = (DeleteFilesOperation) o;
 		return Objects.equal(targets, other.targets);
 	}
 
 	@Override
 	public OperationIdentifier getIdentifier() {
-		return StandardOperationIdentifier.DELETE_DIRECTORY;
+		return StandardOperationIdentifier.DELETE_FILES;
 	}
 
 	public ImmutableList<FileTarget> getTargets() {

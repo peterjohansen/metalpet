@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import org.pemacy.metalpet.model.input.InputType;
 import org.pemacy.metalpet.model.input.StandardInputType;
-import org.pemacy.metalpet.model.operation.DeleteDirectoryOperation;
+import org.pemacy.metalpet.model.operation.DeleteFilesOperation;
 import org.pemacy.metalpet.model.operation.FileNameSearchAndModifyOperation;
 import org.pemacy.metalpet.model.operation.Operation;
 import org.pemacy.metalpet.model.operation.OperationIdentifier;
@@ -24,7 +24,7 @@ public class MetalpetModule extends SimpleModule {
 	private static final String NAME = "MetalpetModule";
 
 	private static final ImmutableMap<OperationIdentifier, Class<? extends Operation>> OPERATION_MAP = ImmutableMap.of(
-		StandardOperationIdentifier.DELETE_DIRECTORY, DeleteDirectoryOperation.class,
+		StandardOperationIdentifier.DELETE_FILES, DeleteFilesOperation.class,
 		StandardOperationIdentifier.FILE_NAME_SEARCH_AND_MODIFY, FileNameSearchAndModifyOperation.class
 	);
 
