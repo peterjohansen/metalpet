@@ -15,13 +15,13 @@ import static org.hamcrest.Matchers.is;
  */
 public class TypeSpecificationDeserializerTest {
 
-	@JsonIgnoreProperties(ignoreUnknown = true) private interface InterfaceSupertype {}
-	@JsonIgnoreProperties(ignoreUnknown = true) private static class InterfaceSubtype1 implements InterfaceSupertype {}
-	@JsonIgnoreProperties(ignoreUnknown = true) private static class InterfaceSubtype2 implements InterfaceSupertype {}
+	private interface InterfaceSupertype {}
+	private static class InterfaceSubtype1 implements InterfaceSupertype {}
+	private static class InterfaceSubtype2 implements InterfaceSupertype {}
 
-	@JsonIgnoreProperties(ignoreUnknown = true) private static class ClassSupertype {}
-	@JsonIgnoreProperties(ignoreUnknown = true) private static class ClassSubtype1 extends ClassSupertype {}
-	@JsonIgnoreProperties(ignoreUnknown = true) private static class ClassSubtype2 extends ClassSupertype {}
+	private static class ClassSupertype {}
+	private static class ClassSubtype1 extends ClassSupertype {}
+	private static class ClassSubtype2 extends ClassSupertype {}
 
 	@Test
 	public void correctClassSubtypeChosen() throws Exception {

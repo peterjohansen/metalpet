@@ -19,7 +19,6 @@ import java.util.List;
 /**
  * @author Peter André Johansen
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "glob", "ignoreFiles", "ignoreDirectories" })
 public class FileNameSearchAndModifyOperation extends OperationBase implements Validatable {
 

@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 /**
  * @author Peter André Johansen
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "report" })
 public abstract class OperationBase implements Operation {
 

@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 /**
  * @author Peter André Johansen
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "replace", "with" })
 public class ReplaceStringModification implements StringModification, Validatable {
 

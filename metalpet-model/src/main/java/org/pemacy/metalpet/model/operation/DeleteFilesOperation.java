@@ -17,7 +17,6 @@ import java.util.List;
 /**
  * @author Peter André Johansen
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "targets" })
 public class DeleteFilesOperation extends OperationBase implements Validatable {
 

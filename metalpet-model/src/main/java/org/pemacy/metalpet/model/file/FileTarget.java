@@ -12,7 +12,6 @@ import javax.validation.constraints.NotBlank;
 /**
  * @author Peter André Johansen
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "glob", "ignoreFiles", "ignoreDirectories" })
 public class FileTarget implements Validatable {
 

@@ -19,7 +19,6 @@ import java.util.List;
 /**
  * @author Peter André Johansen
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "name", "input", "operation" })
 public class Project implements Validatable {
 

@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 /**
  * @author Peter André Johansen
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "prompt", "type", "variable", "optional", "defaultValue" })
 public class UserInput implements Validatable {
 
