@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * @author Peter André Johansen
  */
-public class MetalPet {
+public class Metalpet {
 
 	private static final String DEFAULT_PROJECT_FILE = "metalpet.json";
 

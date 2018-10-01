@@ -18,7 +18,7 @@
     <description>CLI to the application.</description>
 
 	<properties>
-		<mainClass>org.pemacy.metalpet.Metalpet</mainClass>
+		<mainClass>org.pemacy.metalpet.cli.Metalpet</mainClass>
 	</properties>
 
     <dependencies>
@@ -76,7 +76,20 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>${mainClass}</mainClass>
+						</manifest>
+					</archive>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
