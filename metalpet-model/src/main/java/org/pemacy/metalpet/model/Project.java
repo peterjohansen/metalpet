@@ -34,7 +34,7 @@ public class Project implements Validatable {
 	@NotNull(message = "List of user inputs in the project cannot be undefined.")
 	private final ImmutableList<@NotNull @Valid UserInput> userInputList;
 
-	@JsonProperty("operation")
+	@JsonProperty("operations")
 	@NotNull(message = "List of operations in the project cannot be undefined.")
 	private final ImmutableList<@NotNull @Valid Operation> operations;
 
