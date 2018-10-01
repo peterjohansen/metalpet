@@ -19,7 +19,8 @@ import java.util.List;
 /**
  * @author Peter André Johansen
  */
-@JsonPropertyOrder({ "glob", "ignoreFiles", "ignoreDirectories" })
+@JsonIgnoreProperties({ "type" })
+@JsonPropertyOrder({ "report", "type", "glob", "ignoreFiles", "ignoreDirectories" })
 public class FileNameSearchAndModifyOperation extends OperationBase implements Validatable {
 
 	@JsonProperty("targets")

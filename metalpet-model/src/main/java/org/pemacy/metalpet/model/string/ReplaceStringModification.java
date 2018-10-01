@@ -1,6 +1,5 @@
 package org.pemacy.metalpet.model.string;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.base.MoreObjects;
@@ -8,7 +7,6 @@ import com.google.common.base.Objects;
 import org.pemacy.metalpet.validation.Validatable;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**

@@ -1,8 +1,6 @@
 package org.pemacy.metalpet.model.operation;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
@@ -11,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 /**
  * @author Peter André Johansen
  */
-@JsonPropertyOrder({ "report" })
 public abstract class OperationBase implements Operation {
 
 	@JsonProperty("report")
@@ -30,6 +27,7 @@ public abstract class OperationBase implements Operation {
 		return Objects.equal(report, other.report);
 	}
 
+	@JsonProperty("type")
 	@Override
 	public String getReport() {
 		return report;
