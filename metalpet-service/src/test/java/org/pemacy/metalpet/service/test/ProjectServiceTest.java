@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.pemacy.metalpet.json.MetalpetModule;
 import org.pemacy.metalpet.model.Project;
 import org.pemacy.metalpet.model.file.FileTarget;
+import org.pemacy.metalpet.model.file.FileTargetIgnore;
 import org.pemacy.metalpet.model.input.StandardInputType;
 import org.pemacy.metalpet.model.input.UserInput;
 import org.pemacy.metalpet.model.operation.DeleteFilesOperation;
@@ -71,7 +72,7 @@ public class ProjectServiceTest {
 					"\"targets\": [" +
 						"{" +
 							"\"glob\": \"java-rest-skeleton-*\"," +
-							"\"ignoreFiles\": true" +
+							"\"ignore\": \"FILES\"" +
 						"}" +
 					"]," +
 					"\"modifications\": [" +
@@ -100,7 +101,7 @@ public class ProjectServiceTest {
 					new DeleteFilesOperation(
 						"Deleting .git/ directory...",
 						Collections.singletonList(new FileTarget(
-							".git/", null, null
+							".git/", null
 						))
 					),
 					new FileNameSearchAndModifyOperation(
@@ -108,8 +109,7 @@ public class ProjectServiceTest {
 						Collections.singletonList(
 							new FileTarget(
 								"java-rest-skeleton-*",
-								true,
-								null
+								FileTargetIgnore.FILES
 							)
 						),
 						Collections.singletonList(

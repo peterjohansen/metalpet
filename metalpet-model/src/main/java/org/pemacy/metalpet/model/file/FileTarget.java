@@ -11,26 +11,21 @@ import javax.validation.constraints.NotBlank;
 /**
  * @author Peter André Johansen
  */
-@JsonPropertyOrder({ "glob", "ignoreFiles", "ignoreDirectories" })
+@JsonPropertyOrder({ "glob", "ignore" })
 public class FileTarget implements Validatable {
 
-	private static final boolean DEFAULT_IGNORE_FILES = false;
-	private static final boolean DEFAULT_IGNORE_DIRECTORIES = false;
+	private static final FileTargetIgnore DEFAULT_IGNORE = FileTargetIgnore.NONE;
 
 	@JsonProperty("glob")
 	@NotBlank(message = "Glob is missing, empty or blank.")
 	private final String glob;
 
-	@JsonProperty("ignoreFiles")
-	private final boolean ignoreFiles;
+	@JsonProperty("ignore")
+	private final FileTargetIgnore ignore;
 
-	@JsonProperty("ignoreDirectories")
-	private final boolean ignoreDirectories;
-
-	public FileTarget(String glob, Boolean ignoreFiles, Boolean ignoreDirectories) {
+	public FileTarget(String glob, FileTargetIgnore ignore) {
 		this.glob = glob;
-		this.ignoreFiles = (ignoreFiles != null ? ignoreFiles : DEFAULT_IGNORE_FILES);
-		this.ignoreDirectories = (ignoreDirectories != null ? ignoreDirectories : DEFAULT_IGNORE_DIRECTORIES);
+		this.ignore = (ignore != null ? ignore : DEFAULT_IGNORE);
 		validateAfterConstruction();
 	}
 
@@ -39,8 +34,7 @@ public class FileTarget implements Validatable {
 	 */
 	private FileTarget() {
 		this.glob = null;
-		this.ignoreFiles = DEFAULT_IGNORE_FILES;
-		this.ignoreDirectories = DEFAULT_IGNORE_DIRECTORIES;
+		this.ignore = DEFAULT_IGNORE;
 	}
 
 	@Override
@@ -49,33 +43,27 @@ public class FileTarget implements Validatable {
 		if (o == null || getClass() != o.getClass()) { return false; }
 		final var other = (FileTarget) o;
 		return Objects.equal(glob, other.glob)
-			&& Objects.equal(ignoreFiles, other.ignoreFiles)
-			&& Objects.equal(ignoreDirectories, other.ignoreDirectories);
+			&& Objects.equal(ignore, other.ignore);
 	}
 
 	public String getGlob() {
 		return glob;
 	}
 
-	public boolean isIgnoreDirectories() {
-		return ignoreDirectories;
-	}
-
-	public boolean isIgnoreFiles() {
-		return ignoreFiles;
+	public FileTargetIgnore getIgnore() {
+		return ignore;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(glob, ignoreFiles, ignoreDirectories);
+		return Objects.hashCode(glob, ignore);
 	}
 
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
 			.add("glob", glob)
-			.add("ignoreFiles", ignoreFiles)
-			.add("ignoreDirectories", ignoreDirectories)
+			.add("ignore", ignore)
 			.toString();
 	}
 
