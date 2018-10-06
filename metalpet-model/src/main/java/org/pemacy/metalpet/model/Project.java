@@ -21,8 +21,8 @@ import java.util.Objects;
 @JsonPropertyOrder({ "name", "input", "operation" })
 public class Project implements Validatable {
 
-	private static final ImmutableList<UserInput> DEFAULT_USER_INPUT_LIST = ImmutableList.copyOf(Collections.emptyList());
-	private static final ImmutableList<Operation> DEFAULT_OPERATIONS = ImmutableList.copyOf(Collections.emptyList());
+	private static final ImmutableList<UserInput> DEFAULT_USER_INPUT_LIST = ImmutableList.of();
+	private static final ImmutableList<Operation> DEFAULT_OPERATIONS = ImmutableList.of();
 
 	@JsonProperty("name")
 	@NotBlank(message = "Project name is missing, empty or blank.")
