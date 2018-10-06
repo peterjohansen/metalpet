@@ -3,7 +3,6 @@ package org.pemacy.metalpet.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import org.pemacy.metalpet.model.input.UserInput;
 import org.pemacy.metalpet.model.operation.Operation;
@@ -14,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Peter André Johansen
@@ -57,9 +57,9 @@ public class Project implements Validatable {
 		if (this == o) { return true; }
 		if (o == null || getClass() != o.getClass()) { return false; }
 		final var other = (Project) o;
-		return Objects.equal(name, other.name)
-			&& Objects.equal(userInputList, other.userInputList)
-			&& Objects.equal(operations, other.operations);
+		return Objects.equals(name, other.name)
+			&& Objects.equals(userInputList, other.userInputList)
+			&& Objects.equals(operations, other.operations);
 	}
 
 	public String getName() {
@@ -76,7 +76,7 @@ public class Project implements Validatable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(name);
+		return Objects.hash(name);
 	}
 
 	@Override

@@ -2,9 +2,9 @@ package org.pemacy.metalpet.model.operation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 /**
  * @author Peter André Johansen
@@ -24,10 +24,9 @@ public abstract class OperationBase implements Operation {
 		if (this == o) { return true; }
 		if (o == null || getClass() != o.getClass()) { return false; }
 		final var other = (OperationBase) o;
-		return Objects.equal(report, other.report);
+		return Objects.equals(report, other.report);
 	}
 
-	@JsonProperty("type")
 	@Override
 	public String getReport() {
 		return report;
@@ -35,7 +34,7 @@ public abstract class OperationBase implements Operation {
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(report);
+		return Objects.hash(report);
 	}
 
 	@Override

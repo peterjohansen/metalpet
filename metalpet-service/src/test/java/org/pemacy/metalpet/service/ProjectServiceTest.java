@@ -1,4 +1,4 @@
-package org.pemacy.metalpet.service.test;
+package org.pemacy.metalpet.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
@@ -6,14 +6,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.pemacy.metalpet.json.MetalpetModule;
 import org.pemacy.metalpet.model.Project;
-import org.pemacy.metalpet.model.file.FileTarget;
-import org.pemacy.metalpet.model.file.FileTargetIgnore;
+import org.pemacy.metalpet.model.file.target.FileTargetIgnore;
+import org.pemacy.metalpet.model.file.target.matcher.MatcherFileTarget;
 import org.pemacy.metalpet.model.input.StandardInputType;
 import org.pemacy.metalpet.model.input.UserInput;
 import org.pemacy.metalpet.model.operation.DeleteFilesOperation;
 import org.pemacy.metalpet.model.operation.FileNameSearchAndModifyOperation;
 import org.pemacy.metalpet.model.string.ReplaceStringModification;
-import org.pemacy.metalpet.service.ProjectService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class ProjectServiceTest {
 			"\"input\": [" +
 				"{" +
 					"\"prompt\": \"Enter desired Maven module directory prefix\"," +
-					"\"type\": \"STRING\"," +
+					"\"type\": \"string\"," +
 					"\"variable\": \"maven-module-directory-prefix\"," +
 					"\"optional\": true," +
 					"\"defaultValue\": null" +
@@ -72,7 +71,7 @@ public class ProjectServiceTest {
 					"\"targets\": [" +
 						"{" +
 							"\"glob\": \"java-rest-skeleton-*\"," +
-							"\"ignore\": \"FILES\"" +
+							"\"ignore\": \"files\"" +
 						"}" +
 					"]," +
 					"\"modifications\": [" +
@@ -100,14 +99,14 @@ public class ProjectServiceTest {
 				Arrays.asList(
 					new DeleteFilesOperation(
 						"Deleting .git/ directory...",
-						Collections.singletonList(new FileTarget(
+						Collections.singletonList(new MatcherFileTarget(
 							".git/", null
 						))
 					),
 					new FileNameSearchAndModifyOperation(
 						"Renaming module directories...",
 						Collections.singletonList(
-							new FileTarget(
+							new MatcherFileTarget(
 								"java-rest-skeleton-*",
 								FileTargetIgnore.FILES
 							)

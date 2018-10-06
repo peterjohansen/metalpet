@@ -1,11 +1,13 @@
 package org.pemacy.metalpet.model.operation;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author Peter André Johansen
  */
 public enum StandardOperationIdentifier implements OperationIdentifier {
 
-	DELETE_FILES,
-	FILE_NAME_SEARCH_AND_MODIFY
+	@JsonProperty("DELETE_FILES") DELETE_FILES,
+	@JsonProperty("FILE_NAME_SEARCH_AND_MODIFY") FILE_NAME_SEARCH_AND_MODIFY
 
 }

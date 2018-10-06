@@ -3,7 +3,6 @@ package org.pemacy.metalpet.json;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import org.pemacy.metalpet.model.input.InputType;
@@ -15,6 +14,8 @@ import org.pemacy.metalpet.model.operation.OperationIdentifier;
 import org.pemacy.metalpet.model.operation.StandardOperationIdentifier;
 import org.pemacy.metalpet.model.string.ReplaceStringModification;
 import org.pemacy.metalpet.model.string.StringModification;
+
+import java.util.Objects;
 
 /**
  * @author Peter André Johansen
@@ -43,12 +44,12 @@ public class MetalpetModule extends SimpleModule {
 		if (this == o) { return true; }
 		if (o == null || getClass() != o.getClass()) { return false; }
 		final var other = (MetalpetModule) o;
-		return Objects.equal(getModuleName(), other.getModuleName());
+		return Objects.equals(getModuleName(), other.getModuleName());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(getModuleName());
+		return Objects.hash(getModuleName());
 	}
 
 	@Override

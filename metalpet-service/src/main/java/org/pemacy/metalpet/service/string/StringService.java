@@ -1,12 +1,8 @@
 package org.pemacy.metalpet.service.string;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
 import org.pemacy.metalpet.model.string.StringModification;
+import org.pemacy.metalpet.service.string.modification.StringModificationHandlerFunction;
 
-import java.util.Map;
-
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -14,26 +10,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class StringService {
 
-	private final ImmutableMap<Class<? extends StringModification>, StringModificationHandler> handlers;
+	private final StringModificationHandlerFunction stringModificationHandlerFunction;
 
-	public StringService(Map<Class<? extends StringModification>, StringModificationHandler> handlers) {
-		checkNotNull(handlers);
-		handlers.keySet().forEach(Preconditions::checkNotNull);
-		handlers.values().forEach(Preconditions::checkNotNull);
-		this.handlers = ImmutableMap.copyOf(handlers);
-	}
-
-	public ImmutableMap<Class<? extends StringModification>, StringModificationHandler> getHandlers() {
-		return handlers;
+	public StringService(StringModificationHandlerFunction stringModificationHandlerFunction) {
+		this.stringModificationHandlerFunction = checkNotNull(stringModificationHandlerFunction);
 	}
 
 	@SuppressWarnings("unchecked")
-	public String process(String original, StringModification modification) {
+	public String modify(String original, StringModification modification) {
 		checkNotNull(original);
 		checkNotNull(modification);
-		checkArgument(handlers.containsKey(modification.getClass()),
-			"no handler for string modification: " + modification.getClass().getName());
-		return handlers.get(modification.getClass()).apply(original, modification);
+		final var handler = stringModificationHandlerFunction.apply(modification.getClass());
+		checkNotNull(handler, "no handler for string modification: " + modification.getClass().getName());
+		return handler.apply(original, modification);
 	}
 
 }

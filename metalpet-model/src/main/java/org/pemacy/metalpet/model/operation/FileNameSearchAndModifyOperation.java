@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
-import org.pemacy.metalpet.model.file.FileTarget;
+import org.pemacy.metalpet.model.file.target.matcher.MatcherFileTarget;
 import org.pemacy.metalpet.model.string.StringModification;
 import org.pemacy.metalpet.validation.Validatable;
 
@@ -14,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -25,14 +25,14 @@ public class FileNameSearchAndModifyOperation extends OperationBase implements V
 
 	@JsonProperty("targets")
 	@NotEmpty(message = "List of targets cannot be undefined or empty.")
-	private final ImmutableList<@NotNull @Valid FileTarget> targets;
+	private final ImmutableList<@NotNull @Valid MatcherFileTarget> targets;
 
 	@JsonProperty("modifications")
 	@NotEmpty(message = "List of modifications cannot be undefined or empty.")
 	private final ImmutableList<@NotNull @Valid StringModification> modifications;
 
 	public FileNameSearchAndModifyOperation(String report,
-											List<FileTarget> targets,
+											List<MatcherFileTarget> targets,
 											List<StringModification> modifications) {
 		super(report);
 		this.targets = ImmutableList.copyOf(targets);
@@ -54,8 +54,8 @@ public class FileNameSearchAndModifyOperation extends OperationBase implements V
 		if (this == o) { return true; }
 		if (o == null || getClass() != o.getClass()) { return false; }
 		final var other = (FileNameSearchAndModifyOperation) o;
-		return Objects.equal(targets, other.targets)
-			&& Objects.equal(modifications, other.modifications);
+		return Objects.equals(targets, other.targets)
+			&& Objects.equals(modifications, other.modifications);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class FileNameSearchAndModifyOperation extends OperationBase implements V
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(targets, modifications);
+		return Objects.hash(targets, modifications);
 	}
 
 	@Override

@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
-import org.pemacy.metalpet.model.file.FileTarget;
+import org.pemacy.metalpet.model.file.target.matcher.MatcherFileTarget;
 import org.pemacy.metalpet.validation.Validatable;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Peter André Johansen
@@ -23,9 +23,9 @@ public class DeleteFilesOperation extends OperationBase implements Validatable {
 
 	@JsonProperty("targets")
 	@NotEmpty(message = "List of targets cannot be undefined or empty.")
-	private final ImmutableList<@NotNull @Valid FileTarget> targets;
+	private final ImmutableList<@NotNull @Valid MatcherFileTarget> targets;
 
-	public DeleteFilesOperation(String report, List<FileTarget> targets) {
+	public DeleteFilesOperation(String report, List<MatcherFileTarget> targets) {
 		super(report);
 		this.targets = ImmutableList.copyOf(targets);
 		validateAfterConstruction();
@@ -44,7 +44,7 @@ public class DeleteFilesOperation extends OperationBase implements Validatable {
 		if (this == o) { return true; }
 		if (o == null || getClass() != o.getClass()) { return false; }
 		final var other = (DeleteFilesOperation) o;
-		return Objects.equal(targets, other.targets);
+		return Objects.equals(targets, other.targets);
 	}
 
 	@Override
@@ -52,13 +52,13 @@ public class DeleteFilesOperation extends OperationBase implements Validatable {
 		return StandardOperationIdentifier.DELETE_FILES;
 	}
 
-	public ImmutableList<FileTarget> getTargets() {
+	public ImmutableList<MatcherFileTarget> getTargets() {
 		return targets;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(targets);
+		return Objects.hash(targets);
 	}
 
 	@Override

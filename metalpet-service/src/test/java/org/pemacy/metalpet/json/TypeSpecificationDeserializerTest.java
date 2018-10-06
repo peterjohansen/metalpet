@@ -1,10 +1,9 @@
-package org.pemacy.metalpet.json.test;
+package org.pemacy.metalpet.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.junit.jupiter.api.Test;
-import org.pemacy.metalpet.json.TypeSpecificationDeserializer;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

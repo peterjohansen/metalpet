@@ -1,19 +1,10 @@
 package org.pemacy.metalpet.service.file;
 
 import com.google.common.collect.ImmutableSet;
-import org.pemacy.metalpet.model.file.FileTarget;
-import org.pemacy.metalpet.model.file.FileTargetIgnore;
+import org.pemacy.metalpet.model.file.target.FileTarget;
+import org.pemacy.metalpet.service.file.target.FileTargetHandlerFunction;
 
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -22,43 +13,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class FileService {
 
-	public ImmutableSet<Path> findMatches(Path root, FileTarget fileTarget) {
-		checkNotNull(root);
+	private final FileTargetHandlerFunction fileTargetHandlerFunction;
+
+	public FileService(FileTargetHandlerFunction fileTargetHandlerFunction) {
+		this.fileTargetHandlerFunction = checkNotNull(fileTargetHandlerFunction);
+	}
+
+	@SuppressWarnings("unchecked")
+	public ImmutableSet<Path> findFiles(Path rootDirectory, FileTarget fileTarget) {
+		checkNotNull(rootDirectory);
 		checkNotNull(fileTarget);
-
-		final Set<Path> matchingPaths = new HashSet<>();
-		final var pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/" + fileTarget.getGlob());
-		try {
-			Files.walkFileTree(root, new SimpleFileVisitor<>() {
-				@Override
-				public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
-					if (fileTarget.getIgnore() != FileTargetIgnore.DIRECTORIES) {
-						Objects.requireNonNull(dir);
-						Objects.requireNonNull(attrs);
-						if (pathMatcher.matches(dir)) {
-							matchingPaths.add(dir);
-						}
-					}
-					return FileVisitResult.CONTINUE;
-				}
-
-				@Override
-				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-					if (fileTarget.getIgnore() != FileTargetIgnore.FILES) {
-						Objects.requireNonNull(file);
-						Objects.requireNonNull(attrs);
-						if (pathMatcher.matches(file)) {
-							matchingPaths.add(file);
-						}
-					}
-					return FileVisitResult.CONTINUE;
-				}
-			});
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return ImmutableSet.copyOf(matchingPaths);
+		final var handler = fileTargetHandlerFunction.apply(fileTarget.getClass());
+		checkNotNull(handler, "no handler for file target: " + fileTarget.getClass().getName());
+		return handler.apply(rootDirectory, fileTarget);
 	}
 
 }

@@ -3,11 +3,11 @@ package org.pemacy.metalpet.model.input;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import org.pemacy.metalpet.validation.Validatable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * @author Peter André Johansen
@@ -61,11 +61,11 @@ public class UserInput implements Validatable {
 		if (this == o) { return true; }
 		if (o == null || getClass() != o.getClass()) { return false; }
 		final var other = (UserInput) o;
-		return Objects.equal(prompt, other.prompt)
-			&& Objects.equal(type, other.type)
-			&& Objects.equal(variable, other.variable)
-			&& Objects.equal(optional, other.optional)
-			&& Objects.equal(defaultValue, other.defaultValue);
+		return Objects.equals(prompt, other.prompt)
+			&& Objects.equals(type, other.type)
+			&& Objects.equals(variable, other.variable)
+			&& Objects.equals(optional, other.optional)
+			&& Objects.equals(defaultValue, other.defaultValue);
 	}
 
 	public String getDefaultValue() {
@@ -82,7 +82,7 @@ public class UserInput implements Validatable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(prompt, type, variable, optional, defaultValue);
+		return Objects.hash(prompt, type, variable, optional, defaultValue);
 	}
 
 	public boolean isOptional() {

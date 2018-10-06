@@ -1,4 +1,4 @@
-package org.pemacy.metalpet.service.string;
+package org.pemacy.metalpet.service.string.modification;
 
 import org.pemacy.metalpet.model.string.ReplaceStringModification;
 

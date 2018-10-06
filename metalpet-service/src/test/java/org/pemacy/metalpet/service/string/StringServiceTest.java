@@ -1,11 +1,8 @@
-package org.pemacy.metalpet.service.string.test;
+package org.pemacy.metalpet.service.string;
 
 import org.junit.jupiter.api.Test;
 import org.pemacy.metalpet.model.string.StringModification;
-import org.pemacy.metalpet.service.string.StringModificationHandler;
-import org.pemacy.metalpet.service.string.StringService;
-
-import java.util.Map;
+import org.pemacy.metalpet.service.string.modification.StringModificationHandler;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -17,19 +14,21 @@ import static org.hamcrest.Matchers.is;
 public class StringServiceTest {
 
 	@Test
-	public void simpleProcess() {
+	public void simpleModify() {
 		class TestModification implements StringModification {
-			public String delete = ", world";
+			public final String property = "baz";
 		}
 		class TestModificationHandler implements StringModificationHandler<TestModification> {
 			@Override
 			public String apply(String original, TestModification modification) {
-				return original.replace(modification.delete, "");
+				assertThat(original, is(equalTo("bar")));
+				assertThat(modification.property, is(equalTo("baz")));
+				return "foo";
 			}
 		}
-		final var service = new StringService(Map.of(TestModification.class, new TestModificationHandler()));
-		final var actual = service.process("Hello, world!", new TestModification());
-		assertThat(actual, is(equalTo("Hello!")));
+		final var service = new StringService(type -> new TestModificationHandler());
+		final var actual = service.modify("bar", new TestModification());
+		assertThat(actual, is(equalTo("foo")));
 	}
 
 }

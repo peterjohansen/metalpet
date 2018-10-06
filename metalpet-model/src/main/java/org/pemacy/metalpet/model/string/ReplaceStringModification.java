@@ -3,11 +3,11 @@ package org.pemacy.metalpet.model.string;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import org.pemacy.metalpet.validation.Validatable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * @author Peter André Johansen
@@ -42,8 +42,8 @@ public class ReplaceStringModification implements StringModification, Validatabl
 		if (this == o) { return true; }
 		if (o == null || getClass() != o.getClass()) { return false; }
 		final var other = (ReplaceStringModification) o;
-		return Objects.equal(target, other.target)
-			&& Objects.equal(replacement, other.replacement);
+		return Objects.equals(target, other.target)
+			&& Objects.equals(replacement, other.replacement);
 	}
 
 	public String getReplacement() {
@@ -56,7 +56,7 @@ public class ReplaceStringModification implements StringModification, Validatabl
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(target, replacement);
+		return Objects.hash(target, replacement);
 	}
 
 	@Override
