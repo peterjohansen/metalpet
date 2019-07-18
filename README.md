@@ -5,7 +5,7 @@ template by renaming the appropriate files and Java identifiers.
 
 ## Building
 ### Prerequisites
-1. JDK 10
+1. JDK 12
 2. Maven
 
 ### Instructions

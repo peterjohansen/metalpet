@@ -17,9 +17,6 @@ import org.pemacy.metalpet.model.string.StringModification;
 
 import java.util.Objects;
 
-/**
- * @author Peter André Johansen
- */
 public class MetalpetModule extends SimpleModule {
 
 	private static final String NAME = "MetalpetModule";

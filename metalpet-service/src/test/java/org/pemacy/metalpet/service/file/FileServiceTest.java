@@ -2,19 +2,16 @@ package org.pemacy.metalpet.service.file;
 
 import com.google.common.collect.ImmutableSet;
 import org.junit.jupiter.api.Test;
-import org.pemacy.metalpet.model.file.target.FileTarget;
-import org.pemacy.metalpet.service.file.target.FileTargetHandler;
+import org.pemacy.metalpet.model.file.FileTarget;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-/**
- * @author Peter André Johansen
- */
 public class FileServiceTest {
 
 	@Test
@@ -24,7 +21,7 @@ public class FileServiceTest {
 		}
 		class TestTargetHandler implements FileTargetHandler<TestFileTarget> {
 			@Override
-			public ImmutableSet<Path> apply(Path rootDirectory, TestFileTarget fileTarget) {
+			public Set<Path> apply(Path rootDirectory, TestFileTarget fileTarget) {
 				assertThat(rootDirectory, is(equalTo(Paths.get("bar"))));
 				assertThat(fileTarget.property, is(equalTo("baz")));
 				return ImmutableSet.of(Paths.get("foobar"));

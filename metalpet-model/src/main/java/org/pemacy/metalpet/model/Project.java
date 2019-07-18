@@ -2,90 +2,46 @@ package org.pemacy.metalpet.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.google.common.base.MoreObjects;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.collect.ImmutableList;
+import org.immutables.value.Value;
 import org.pemacy.metalpet.model.input.UserInput;
 import org.pemacy.metalpet.model.operation.Operation;
-import org.pemacy.metalpet.validation.Validatable;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
-/**
- * @author Peter André Johansen
- */
+import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
+
+@Value.Immutable
+@Value.Style(validationMethod = VALIDATION_API)
+@JsonSerialize(as = ImmutableProject.class)
+@JsonDeserialize(as = ImmutableProject.class)
 @JsonPropertyOrder({ "name", "input", "operation" })
-public class Project implements Validatable {
+public interface Project {
 
-	private static final ImmutableList<UserInput> DEFAULT_USER_INPUT_LIST = ImmutableList.of();
-	private static final ImmutableList<Operation> DEFAULT_OPERATIONS = ImmutableList.of();
+	List<UserInput> DEFAULT_USER_INPUT_LIST = ImmutableList.of();
+	List<Operation> DEFAULT_OPERATIONS = ImmutableList.of();
 
+	@NotBlank(message = "Project name is undefined, empty or blank.")
 	@JsonProperty("name")
-	@NotBlank(message = "Project name is missing, empty or blank.")
-	private final String name;
+	String getName();
 
-	@JsonProperty("input")
+	@Value.Default
 	@NotNull(message = "List of user inputs in the project cannot be undefined.")
-	private final ImmutableList<@NotNull @Valid UserInput> userInputList;
+	@JsonProperty("input")
+	default List<@NotNull @Valid UserInput> getUserInputList() {
+		return DEFAULT_USER_INPUT_LIST;
+	}
 
-	@JsonProperty("operations")
+	@Value.Default
 	@NotNull(message = "List of operations in the project cannot be undefined.")
-	private final ImmutableList<@NotNull @Valid Operation> operations;
-
-	public Project(String name, List<UserInput> userInputList, List<Operation> operations) {
-		this.name = name;
-		this.userInputList = (userInputList != null ? ImmutableList.copyOf(userInputList) : DEFAULT_USER_INPUT_LIST);
-		this.operations = (operations != null ? ImmutableList.copyOf(operations) : DEFAULT_OPERATIONS);
-		validateAfterConstruction();
-	}
-
-	/**
-	 * For instantiation by reflection.
-	 */
-	private Project() {
-		this.name = null;
-		this.userInputList = DEFAULT_USER_INPUT_LIST;
-		this.operations = DEFAULT_OPERATIONS;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) { return true; }
-		if (o == null || getClass() != o.getClass()) { return false; }
-		final var other = (Project) o;
-		return Objects.equals(name, other.name)
-			&& Objects.equals(userInputList, other.userInputList)
-			&& Objects.equals(operations, other.operations);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public ImmutableList<Operation> getOperations() {
-		return operations;
-	}
-
-	public ImmutableList<UserInput> getUserInputList() {
-		return userInputList;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(name);
-	}
-
-	@Override
-	public String toString() {
-		return MoreObjects.toStringHelper(this)
-			.add("name", name)
-			.add("userInputList", userInputList)
-			.add("operations", operations)
-			.toString();
+	@JsonProperty("operations")
+	default List<@NotNull @Valid Operation> getOperations() {
+		return DEFAULT_OPERATIONS;
 	}
 
 }

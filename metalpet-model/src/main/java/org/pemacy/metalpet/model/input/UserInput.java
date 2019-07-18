@@ -2,101 +2,49 @@ package org.pemacy.metalpet.model.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.google.common.base.MoreObjects;
-import org.pemacy.metalpet.validation.Validatable;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.immutables.value.Value;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
-/**
- * @author Peter André Johansen
- */
+import java.util.Optional;
+
+import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
+
+@Value.Immutable
+@Value.Style(validationMethod = VALIDATION_API)
+@JsonSerialize(as = ImmutableUserInput.class)
+@JsonDeserialize(as = ImmutableUserInput.class)
 @JsonPropertyOrder({ "prompt", "type", "variable", "optional", "defaultValue" })
-public class UserInput implements Validatable {
+public interface UserInput {
 
-	private static final boolean DEFAULT_OPTIONAL = false;
-	private static final String DEFAULT_DEFAULT_VALUE = null;
+	boolean DEFAULT_OPTIONAL = false;
+	String DEFAULT_DEFAULT_VALUE = null;
 
+	@NotBlank(message = "User input prompt is undefined, empty or blank.")
 	@JsonProperty("prompt")
-	@NotBlank(message = "User input prompt is missing, empty or blank.")
-	private final String prompt;
+	String getPrompt();
 
-	@JsonProperty("type")
 	@NotNull(message = "User input type cannot be undefined.")
-	private final InputType type;
+	@JsonProperty("type")
+	InputType getType();
 
+	@NotBlank(message = "User input variable is undefined, empty or blank.")
 	@JsonProperty("variable")
-	@NotBlank(message = "User input variable is missing, empty or blank.")
-	private final String variable;
+	String getVariable();
 
+	@Value.Default
 	@JsonProperty("optional")
-	private final boolean optional;
+	default boolean isOptional() {
+		return DEFAULT_OPTIONAL;
+	}
 
+	@Value.Default
 	@JsonProperty("defaultValue")
-	private final String defaultValue;
-
-	public UserInput(String prompt, InputType type, String variable, Boolean optional, String defaultValue) {
-		this.prompt = prompt;
-		this.type = type;
-		this.variable = variable;
-		this.optional = (optional != null ? optional : DEFAULT_OPTIONAL);
-		this.defaultValue = (defaultValue != null ? defaultValue : DEFAULT_DEFAULT_VALUE);
-		validateAfterConstruction();
-	}
-
-	/**
-	 * For instantiation by reflection.
-	 */
-	private UserInput() {
-		this.prompt = null;
-		this.type = null;
-		this.variable = null;
-		this.optional = DEFAULT_OPTIONAL;
-		this.defaultValue = DEFAULT_DEFAULT_VALUE;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) { return true; }
-		if (o == null || getClass() != o.getClass()) { return false; }
-		final var other = (UserInput) o;
-		return Objects.equals(prompt, other.prompt)
-			&& Objects.equals(type, other.type)
-			&& Objects.equals(variable, other.variable)
-			&& Objects.equals(optional, other.optional)
-			&& Objects.equals(defaultValue, other.defaultValue);
-	}
-
-	public String getDefaultValue() {
-		return defaultValue;
-	}
-
-	public String getPrompt() {
-		return prompt;
-	}
-
-	public String getVariable() {
-		return variable;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(prompt, type, variable, optional, defaultValue);
-	}
-
-	public boolean isOptional() {
-		return optional;
-	}
-
-	@Override
-	public String toString() {
-		return MoreObjects.toStringHelper(this)
-			.add("type", type)
-			.add("variable", variable)
-			.add("optional", optional)
-			.add("defaultValue", defaultValue)
-			.toString();
+	default Optional<String> getDefaultValue() {
+		return Optional.ofNullable(DEFAULT_DEFAULT_VALUE);
 	}
 
 }

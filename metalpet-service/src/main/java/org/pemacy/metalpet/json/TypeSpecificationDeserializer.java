@@ -12,14 +12,8 @@ import java.util.function.Function;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * @author Peter André Johansen
- */
 public class TypeSpecificationDeserializer<T> extends StdDeserializer<T> {
 
-	/**
-	 * @author Peter André Johansen
-	 */
 	@FunctionalInterface
 	public interface TypeMapper<T> extends Function<String, Class<? extends T>> {
 	}

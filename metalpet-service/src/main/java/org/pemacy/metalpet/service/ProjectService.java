@@ -11,9 +11,6 @@ import java.nio.file.Paths;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * @author Peter André Johansen
- */
 public class ProjectService {
 
 	private final ObjectMapper objectMapper;
@@ -32,7 +29,7 @@ public class ProjectService {
 	public void execute(InputStream inputStream) throws IOException {
 		checkNotNull(inputStream, "input stream cannot be null");
 		final var project = parseProjectModel(inputStream);
-		System.out.println(project);
+		System.out.println(project); // TODO
 	}
 
 	public Project parseProjectModel(InputStream inputStream) throws IOException {

@@ -4,9 +4,6 @@ import org.pemacy.metalpet.model.string.StringModification;
 
 import java.util.function.Function;
 
-/**
- * @author Peter André Johansen
- */
 @FunctionalInterface
 public interface StringModificationHandlerFunction
 	extends Function<Class<? extends StringModification>, StringModificationHandler> {

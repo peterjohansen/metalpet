@@ -7,11 +7,11 @@
     <parent>
         <groupId>org.pemacy</groupId>
         <artifactId>metalpet</artifactId>
-        <version>0.1.0</version>
+		<version>0.0.1</version>
     </parent>
 
     <artifactId>metalpet-service</artifactId>
-    <version>0.1.0</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>Metalpet Service</name>
@@ -49,13 +49,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-all</artifactId>
+			<artifactId>hamcrest</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

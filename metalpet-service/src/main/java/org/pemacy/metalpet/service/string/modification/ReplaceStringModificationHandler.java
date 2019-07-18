@@ -4,9 +4,6 @@ import org.pemacy.metalpet.model.string.ReplaceStringModification;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * @author Peter André Johansen
- */
 public class ReplaceStringModificationHandler implements StringModificationHandler<ReplaceStringModification> {
 
 	@Override

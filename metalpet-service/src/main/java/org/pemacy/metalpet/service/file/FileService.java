@@ -1,16 +1,12 @@
 package org.pemacy.metalpet.service.file;
 
-import com.google.common.collect.ImmutableSet;
-import org.pemacy.metalpet.model.file.target.FileTarget;
-import org.pemacy.metalpet.service.file.target.FileTargetHandlerFunction;
+import org.pemacy.metalpet.model.file.FileTarget;
 
 import java.nio.file.Path;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * @author Peter André Johansen
- */
 public class FileService {
 
 	private final FileTargetHandlerFunction fileTargetHandlerFunction;
@@ -20,7 +16,7 @@ public class FileService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public ImmutableSet<Path> findFiles(Path rootDirectory, FileTarget fileTarget) {
+	public Set<Path> findFiles(Path rootDirectory, FileTarget fileTarget) {
 		checkNotNull(rootDirectory);
 		checkNotNull(fileTarget);
 		final var handler = fileTargetHandlerFunction.apply(fileTarget.getClass());

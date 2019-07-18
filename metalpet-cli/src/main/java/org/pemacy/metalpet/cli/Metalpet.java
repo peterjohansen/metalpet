@@ -11,9 +11,6 @@ import org.pemacy.metalpet.service.ProjectService;
 
 import java.io.IOException;
 
-/**
- * @author Peter André Johansen
- */
 public class Metalpet {
 
 	private static final String DEFAULT_PROJECT_FILE = "metalpet.json";

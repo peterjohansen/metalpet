@@ -15,9 +15,6 @@ import java.util.Set;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * @author Peter André Johansen
- */
 public class PropertyMatchingDeserializer<T> extends StdDeserializer<T> {
 
 	private final ImmutableSet<Class<? extends T>> subtypes;
@@ -34,11 +31,10 @@ public class PropertyMatchingDeserializer<T> extends StdDeserializer<T> {
 		final var mapper = (ObjectMapper) parser.getCodec();
 		final var node = (ObjectNode) mapper.readTree(parser);
 		final var fieldNames = ImmutableSet.copyOf(node.fieldNames());
-		final var type =
-			subtypes.stream()
-					.filter(t -> isPropertiesMatch(t, fieldNames))
-					.findFirst()
-					.orElseThrow(() -> new JsonMappingException(parser, "no types with matching properties found"));
+		final var type = subtypes.stream()
+			.filter(t -> isPropertiesMatch(t, fieldNames))
+			.findFirst()
+			.orElseThrow(() -> new JsonMappingException(parser, "no types with matching properties found"));
 		return mapper.readValue(node.toString(), type);
 	}
 

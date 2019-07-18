@@ -5,9 +5,6 @@ import org.pemacy.metalpet.service.string.modification.StringModificationHandler
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * @author Peter André Johansen
- */
 public class StringService {
 
 	private final StringModificationHandlerFunction stringModificationHandlerFunction;

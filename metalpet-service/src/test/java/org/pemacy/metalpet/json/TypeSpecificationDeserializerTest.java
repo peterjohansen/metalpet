@@ -9,9 +9,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-/**
- * @author Peter André Johansen
- */
 public class TypeSpecificationDeserializerTest {
 
 	@JsonIgnoreProperties(ignoreUnknown = true) private interface InterfaceSupertype {}
