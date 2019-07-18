@@ -1,5 +1,6 @@
 package org.pemacy.metalpet.model.operation;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -19,6 +20,7 @@ import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
 @Value.Style(validationMethod = VALIDATION_API)
 @JsonSerialize(as = ImmutableFileNameSearchAndModifyOperation.class)
 @JsonDeserialize(as = ImmutableFileNameSearchAndModifyOperation.class)
+@JsonIgnoreProperties(value = "type")
 @JsonPropertyOrder({ "report", "type", "glob", "ignoreFiles", "ignoreDirectories" })
 public interface FileNameSearchAndModifyOperation extends OperationBase {
 

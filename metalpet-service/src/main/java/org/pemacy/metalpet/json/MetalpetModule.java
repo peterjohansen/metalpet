@@ -5,13 +5,11 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import org.pemacy.metalpet.model.file.FileTarget;
+import org.pemacy.metalpet.model.file.MatcherFileTarget;
 import org.pemacy.metalpet.model.input.InputType;
 import org.pemacy.metalpet.model.input.StandardInputType;
-import org.pemacy.metalpet.model.operation.DeleteFilesOperation;
-import org.pemacy.metalpet.model.operation.FileNameSearchAndModifyOperation;
-import org.pemacy.metalpet.model.operation.Operation;
-import org.pemacy.metalpet.model.operation.OperationIdentifier;
-import org.pemacy.metalpet.model.operation.StandardOperationIdentifier;
+import org.pemacy.metalpet.model.operation.*;
 import org.pemacy.metalpet.model.string.ReplaceStringModification;
 import org.pemacy.metalpet.model.string.StringModification;
 
@@ -30,6 +28,7 @@ public class MetalpetModule extends SimpleModule {
 
 	public MetalpetModule() {
 		super(NAME);
+		setUpFiles();
 		setUpOperations();
 		setUpStringModifications();
 		setUpUserInputs();
@@ -54,6 +53,14 @@ public class MetalpetModule extends SimpleModule {
 		return MoreObjects.toStringHelper(this)
 			.add("name", getModuleName())
 			.toString();
+	}
+
+	private void setUpFiles() {
+		addDeserializer(FileTarget.class,
+			new PropertyMatchingDeserializer<>(FileTarget.class, ImmutableSet.of(
+				MatcherFileTarget.class
+			))
+		);
 	}
 
 	private void setUpOperations() {
