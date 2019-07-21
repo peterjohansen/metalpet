@@ -12,7 +12,9 @@ import org.pemacy.metalpet.model.operation.Operation;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
 
@@ -20,7 +22,7 @@ import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
 @Value.Style(validationMethod = VALIDATION_API)
 @JsonSerialize(as = ImmutableProject.class)
 @JsonDeserialize(as = ImmutableProject.class)
-@JsonPropertyOrder({ "name", "input", "operation" })
+@JsonPropertyOrder({ "name", "projectFile", "input", "operation" })
 public interface Project {
 
 	List<UserInput> DEFAULT_USER_INPUT_LIST = ImmutableList.of();
@@ -29,6 +31,9 @@ public interface Project {
 	@NotBlank(message = "Project name is undefined, empty or blank.")
 	@JsonProperty("name")
 	String getName();
+
+	@JsonProperty("projectFile")
+	Optional<Path> getProjectFile();
 
 	@Value.Default
 	@NotNull(message = "List of user inputs in the project cannot be undefined.")

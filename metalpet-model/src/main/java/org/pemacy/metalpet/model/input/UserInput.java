@@ -8,7 +8,6 @@ import org.immutables.value.Value;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import java.util.Optional;
 
 import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
@@ -19,9 +18,6 @@ import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
 @JsonDeserialize(as = ImmutableUserInput.class)
 @JsonPropertyOrder({ "prompt", "type", "variable", "optional", "defaultValue" })
 public interface UserInput {
-
-	boolean DEFAULT_OPTIONAL = false;
-	String DEFAULT_DEFAULT_VALUE = null;
 
 	@NotBlank(message = "User input prompt is undefined, empty or blank.")
 	@JsonProperty("prompt")
@@ -35,16 +31,7 @@ public interface UserInput {
 	@JsonProperty("variable")
 	String getVariable();
 
-	@Value.Default
-	@JsonProperty("optional")
-	default boolean isOptional() {
-		return DEFAULT_OPTIONAL;
-	}
-
-	@Value.Default
 	@JsonProperty("defaultValue")
-	default Optional<String> getDefaultValue() {
-		return Optional.ofNullable(DEFAULT_DEFAULT_VALUE);
-	}
+	Optional<String> getDefaultValue();
 
 }

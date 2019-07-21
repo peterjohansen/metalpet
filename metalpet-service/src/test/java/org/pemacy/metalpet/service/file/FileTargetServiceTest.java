@@ -6,18 +6,19 @@ import org.pemacy.metalpet.model.file.FileTarget;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-public class FileServiceTest {
+public class FileTargetServiceTest {
 
 	@Test
 	public void simpleFindFiles() {
 		class TestFileTarget implements FileTarget {
-			public final String property = "baz";
+			final String property = "baz";
 		}
 		class TestTargetHandler implements FileTargetHandler<TestFileTarget> {
 			@Override
@@ -27,9 +28,9 @@ public class FileServiceTest {
 				return ImmutableSet.of(Paths.get("foobar"));
 			}
 		}
-		final var service = new FileService(type -> new TestTargetHandler());
+		final var service = new FileTargetService(type -> Optional.of(new TestTargetHandler()));
 		final var actual = service.findFiles(Paths.get("bar"), new TestFileTarget());
 		assertThat(actual, is(equalTo(ImmutableSet.of(Paths.get("foobar")))));
 	}
-}
 
+}

@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.pemacy.metalpet.model.string.StringModification;
 import org.pemacy.metalpet.service.string.modification.StringModificationHandler;
 
+import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -13,7 +15,7 @@ public class StringServiceTest {
 	@Test
 	public void simpleModify() {
 		class TestModification implements StringModification {
-			public final String property = "baz";
+			final String property = "baz";
 		}
 		class TestModificationHandler implements StringModificationHandler<TestModification> {
 			@Override
@@ -23,7 +25,7 @@ public class StringServiceTest {
 				return "foo";
 			}
 		}
-		final var service = new StringService(type -> new TestModificationHandler());
+		final var service = new StringService(type -> Optional.of(new TestModificationHandler()));
 		final var actual = service.modify("bar", new TestModification());
 		assertThat(actual, is(equalTo("foo")));
 	}

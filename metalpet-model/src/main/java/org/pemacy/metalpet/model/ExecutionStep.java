@@ -1,0 +1,13 @@
+package org.pemacy.metalpet.model;
+
+public enum ExecutionStep {
+
+	DISPLAYING_PROJECT_INFO,
+	ASKING_FOR_INPUT,
+	AWAITING_INPUT,
+	PROCESSING_INPUT,
+	PERFORMING_OPERATION,
+	OPERATION_COMPLETE,
+	FINISHED
+
+}

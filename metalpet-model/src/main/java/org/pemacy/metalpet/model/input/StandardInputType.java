@@ -14,6 +14,6 @@ public enum StandardInputType implements InputType {
 	INTEGER,
 
 	@JsonProperty("decimal")
-	DECIMAL,
+	DOUBLE,
 
 }

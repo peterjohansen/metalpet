@@ -8,20 +8,24 @@ import org.pemacy.metalpet.json.MetalpetModule;
 import org.pemacy.metalpet.model.ImmutableProject;
 import org.pemacy.metalpet.model.Project;
 import org.pemacy.metalpet.model.file.FileTargetIgnore;
+import org.pemacy.metalpet.model.file.ImmutableDeleteFilesOperation;
+import org.pemacy.metalpet.model.file.ImmutableFileNameSearchAndModifyOperation;
 import org.pemacy.metalpet.model.file.ImmutableMatcherFileTarget;
 import org.pemacy.metalpet.model.input.ImmutableUserInput;
 import org.pemacy.metalpet.model.input.StandardInputType;
-import org.pemacy.metalpet.model.operation.ImmutableDeleteFilesOperation;
-import org.pemacy.metalpet.model.operation.ImmutableFileNameSearchAndModifyOperation;
 import org.pemacy.metalpet.model.string.ImmutableReplaceStringModification;
+import org.pemacy.metalpet.output.OutputService;
+import org.pemacy.metalpet.service.input.InputService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.mock;
 
 public class ProjectServiceTest {
 
@@ -34,15 +38,15 @@ public class ProjectServiceTest {
 			new GuavaModule(),
 			new MetalpetModule()
 		);
-		projectService = new ProjectService(objectMapper);
+		projectService = new ProjectService(mock(InputService.class), mock(OutputService.class), objectMapper);
 	}
 
 	@Test
 	public void parseComplexProjectModel() throws IOException {
-		final var jsonString = createComplexProjectJson();
+		final var jsonString = createComplexProjectModelAsJson();
 		try (final var jsonInputStream = new ByteArrayInputStream(jsonString.getBytes(UTF_8.displayName()))) {
-			final var parsedProject = projectService.parseProjectModel(jsonInputStream);
-			final var expectedProject = createComplexProjectObjects();
+			final var parsedProject = projectService.parseProject(jsonInputStream);
+			final var expectedProject = createComplexProjectModelAsObjects();
 			assertThat(parsedProject, is(equalTo(expectedProject)));
 		}
 	}
@@ -51,16 +55,16 @@ public class ProjectServiceTest {
 	public void parseSimpleProjectModel() throws IOException {
 		final var jsonString = "{ \"name\": \"foobar\", \"input\": [], \"operations\": [] }";
 		try (final var jsonInputStream = new ByteArrayInputStream(jsonString.getBytes(UTF_8.displayName()))) {
-			final var parsedProject = projectService.parseProjectModel(jsonInputStream);
+			final var parsedProject = projectService.parseProject(jsonInputStream);
 			final var expectedProject = ImmutableProject.builder().name("foobar").build();
 			assertThat(parsedProject, is(equalTo(expectedProject)));
 		}
 	}
 
 	/**
-	 * Is the JSON equivalent of {@link #createComplexProjectObjects()}.
+	 * Is the JSON equivalent of {@link #createComplexProjectModelAsObjects()}.
 	 */
-	private String createComplexProjectJson() {
+	private String createComplexProjectModelAsJson() {
 		return "{" +
 				"\"name\": \"foobar\"," +
 				"\"input\": [" +
@@ -103,9 +107,9 @@ public class ProjectServiceTest {
 	}
 
 	/**
-	 * Is the objects equivalent of {@link #createComplexProjectJson()}.
+	 * Is the objects equivalent of {@link #createComplexProjectModelAsJson()}.
 	 */
-	private Project createComplexProjectObjects() {
+	private Project createComplexProjectModelAsObjects() {
 		final var project = ImmutableProject.builder();
 		project.name("foobar");
 		project.addUserInputList(
@@ -113,7 +117,7 @@ public class ProjectServiceTest {
 				.prompt("Enter desired Maven module directory prefix")
 				.type(StandardInputType.STRING)
 				.variable("maven-module-directory-prefix")
-				.isOptional(true)
+				.defaultValue(Optional.empty())
 				.build()
 		);
 		project.addOperations(

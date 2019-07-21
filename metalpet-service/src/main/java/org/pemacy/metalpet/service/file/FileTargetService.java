@@ -7,11 +7,11 @@ import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class FileService {
+public class FileTargetService {
 
 	private final FileTargetHandlerFunction fileTargetHandlerFunction;
 
-	public FileService(FileTargetHandlerFunction fileTargetHandlerFunction) {
+	public FileTargetService(FileTargetHandlerFunction fileTargetHandlerFunction) {
 		this.fileTargetHandlerFunction = checkNotNull(fileTargetHandlerFunction);
 	}
 
@@ -19,8 +19,8 @@ public class FileService {
 	public Set<Path> findFiles(Path rootDirectory, FileTarget fileTarget) {
 		checkNotNull(rootDirectory);
 		checkNotNull(fileTarget);
-		final var handler = fileTargetHandlerFunction.apply(fileTarget.getClass());
-		checkNotNull(handler, "no handler for file target: " + fileTarget.getClass().getName());
+		final var handler = fileTargetHandlerFunction.apply(fileTarget.getClass())
+			.orElseThrow(() -> new IllegalArgumentException("no handler for file target: " + fileTarget.getClass().getName()));
 		return handler.apply(rootDirectory, fileTarget);
 	}
 
