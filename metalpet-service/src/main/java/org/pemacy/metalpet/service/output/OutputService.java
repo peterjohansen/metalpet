@@ -1,4 +1,4 @@
-package org.pemacy.metalpet.output;
+package org.pemacy.metalpet.service.output;
 
 @FunctionalInterface
 public interface OutputService {

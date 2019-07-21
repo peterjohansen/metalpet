@@ -1,7 +1,6 @@
 package org.pemacy.metalpet.service.string;
 
 import org.pemacy.metalpet.model.string.StringModification;
-import org.pemacy.metalpet.service.string.modification.StringModificationHandlerFunction;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

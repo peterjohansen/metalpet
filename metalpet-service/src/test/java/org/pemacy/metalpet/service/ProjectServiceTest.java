@@ -14,8 +14,8 @@ import org.pemacy.metalpet.model.file.ImmutableMatcherFileTarget;
 import org.pemacy.metalpet.model.input.ImmutableUserInput;
 import org.pemacy.metalpet.model.input.StandardInputType;
 import org.pemacy.metalpet.model.string.ImmutableReplaceStringModification;
-import org.pemacy.metalpet.output.OutputService;
 import org.pemacy.metalpet.service.input.InputService;
+import org.pemacy.metalpet.service.output.OutputService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

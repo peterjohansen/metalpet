@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.pemacy.metalpet.model.*;
 import org.pemacy.metalpet.model.input.StandardInputType;
 import org.pemacy.metalpet.model.input.UserInput;
-import org.pemacy.metalpet.output.OutputService;
 import org.pemacy.metalpet.service.input.InputService;
+import org.pemacy.metalpet.service.output.OutputService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -125,7 +125,7 @@ public class ProjectService {
 				ongoingProject = setStep(ongoingProject, ExecutionStep.PERFORMING_OPERATION);
 				outputService.printfln("%s...", operation.getReport());
 
-				
+
 
 				ongoingProject = setStep(ongoingProject, ExecutionStep.OPERATION_COMPLETE);
 				LOGGER.info("Operation complete: {}", operation.getIdentifier());

@@ -23,7 +23,7 @@ import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
 @JsonSerialize(as = ImmutableFileNameSearchAndModifyOperation.class)
 @JsonDeserialize(as = ImmutableFileNameSearchAndModifyOperation.class)
 @JsonIgnoreProperties(value = "type")
-@JsonPropertyOrder({ "report", "type", "glob", "ignoreFiles", "ignoreDirectories" })
+@JsonPropertyOrder({ "report", "targets", "modifications" })
 public interface FileNameSearchAndModifyOperation extends OperationBase {
 
 	@Override
