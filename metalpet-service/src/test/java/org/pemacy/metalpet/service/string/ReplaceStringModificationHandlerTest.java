@@ -1,4 +1,4 @@
-package org.pemacy.metalpet.service.string.modification;
+package org.pemacy.metalpet.service.string;
 
 import org.junit.jupiter.api.Test;
 import org.pemacy.metalpet.model.string.ImmutableReplaceStringModification;

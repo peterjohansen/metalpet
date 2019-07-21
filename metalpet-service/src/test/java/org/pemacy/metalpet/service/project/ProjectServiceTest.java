@@ -1,4 +1,4 @@
-package org.pemacy.metalpet.service;
+package org.pemacy.metalpet.service.project;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;

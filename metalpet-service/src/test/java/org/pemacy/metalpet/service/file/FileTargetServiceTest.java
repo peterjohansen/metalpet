@@ -1,10 +1,8 @@
-package org.pemacy.metalpet.service.filetarget;
+package org.pemacy.metalpet.service.file;
 
 import com.google.common.collect.ImmutableSet;
 import org.junit.jupiter.api.Test;
 import org.pemacy.metalpet.model.file.FileTarget;
-import org.pemacy.metalpet.service.file.FileTargetHandler;
-import org.pemacy.metalpet.service.file.FileTargetService;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
