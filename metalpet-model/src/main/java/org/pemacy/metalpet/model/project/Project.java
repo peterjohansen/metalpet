@@ -1,4 +1,4 @@
-package org.pemacy.metalpet.model;
+package org.pemacy.metalpet.model.project;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

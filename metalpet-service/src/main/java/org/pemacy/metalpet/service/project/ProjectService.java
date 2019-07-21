@@ -1,9 +1,9 @@
-package org.pemacy.metalpet.service;
+package org.pemacy.metalpet.service.project;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.pemacy.metalpet.model.*;
 import org.pemacy.metalpet.model.input.StandardInputType;
 import org.pemacy.metalpet.model.input.UserInput;
+import org.pemacy.metalpet.model.project.*;
 import org.pemacy.metalpet.service.input.InputService;
 import org.pemacy.metalpet.service.output.OutputService;
 import org.slf4j.Logger;

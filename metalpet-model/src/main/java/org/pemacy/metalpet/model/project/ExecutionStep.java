@@ -1,4 +1,4 @@
-package org.pemacy.metalpet.model;
+package org.pemacy.metalpet.model.project;
 
 public enum ExecutionStep {
 

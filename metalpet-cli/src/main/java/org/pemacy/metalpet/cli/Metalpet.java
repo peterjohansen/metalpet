@@ -7,10 +7,10 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.pemacy.metalpet.json.MetalpetModule;
-import org.pemacy.metalpet.model.ExecutionStep;
-import org.pemacy.metalpet.service.ProjectService;
+import org.pemacy.metalpet.model.project.ExecutionStep;
 import org.pemacy.metalpet.service.input.InputService;
 import org.pemacy.metalpet.service.output.OutputService;
+import org.pemacy.metalpet.service.project.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
