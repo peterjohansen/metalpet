@@ -2,6 +2,7 @@ package org.pemacy.metalpet.model.project;
 
 public enum ExecutionStep {
 
+	READY_TO_EXECUTE,
 	DISPLAYING_PROJECT_INFO,
 	ASKING_FOR_INPUT,
 	AWAITING_INPUT,

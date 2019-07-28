@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+	<property scope="context" name="pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+	<appender name="APPLOG" class="ch.qos.logback.core.FileAppender">
+		<file>metalpet.log</file>
+		<param name="Append" value="false" />
+		<encoder>
+			<pattern>${pattern}</pattern>
+		</encoder>
+	</appender>
+
 	<logger name="org.hibernate.validator" level="ERROR"/>
-	<root level="debug"/>
+	<logger name="org.jboss.logging" level="ERROR"/>
+
+	<root level="debug">
+		<appender-ref ref="APPLOG"/>
+	</root>
 </configuration>

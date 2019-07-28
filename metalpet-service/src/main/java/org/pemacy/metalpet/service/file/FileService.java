@@ -7,11 +7,11 @@ import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class FileTargetService {
+public class FileService {
 
 	private final FileTargetHandlerFunction fileTargetHandlerFunction;
 
-	public FileTargetService(FileTargetHandlerFunction fileTargetHandlerFunction) {
+	public FileService(FileTargetHandlerFunction fileTargetHandlerFunction) {
 		this.fileTargetHandlerFunction = checkNotNull(fileTargetHandlerFunction);
 	}
 

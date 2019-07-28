@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-public class FileTargetServiceTest {
+public class FileServiceTest {
 
 	@Test
 	public void simpleFindFiles() {
@@ -28,7 +28,7 @@ public class FileTargetServiceTest {
 				return ImmutableSet.of(Paths.get("foobar"));
 			}
 		}
-		final var service = new FileTargetService(type -> Optional.of(new TestTargetHandler()));
+		final var service = new FileService(type -> Optional.of(new TestTargetHandler()));
 		final var actual = service.findFiles(Paths.get("bar"), new TestFileTarget());
 		assertThat(actual, is(equalTo(ImmutableSet.of(Paths.get("foobar")))));
 	}

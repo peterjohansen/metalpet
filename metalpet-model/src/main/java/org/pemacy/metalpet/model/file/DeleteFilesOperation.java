@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.immutables.value.Value;
-import org.pemacy.metalpet.model.operation.OperationBase;
+import org.pemacy.metalpet.model.operation.Operation;
 import org.pemacy.metalpet.model.operation.OperationIdentifier;
 import org.pemacy.metalpet.model.operation.StandardOperationIdentifier;
 
@@ -23,7 +23,7 @@ import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
 @JsonDeserialize(as = ImmutableDeleteFilesOperation.class)
 @JsonIgnoreProperties(value = "type")
 @JsonPropertyOrder({ "report", "type", "targets" })
-public interface DeleteFilesOperation extends OperationBase {
+public interface DeleteFilesOperation extends Operation {
 
 	@Override
 	String getReport();

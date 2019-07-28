@@ -35,7 +35,7 @@ public class MetalpetModule extends SimpleModule {
 
 	public MetalpetModule() {
 		super(NAME);
-		setUpFiles();
+		setUpFileMatchers();
 		setUpOperations();
 		setUpStringModifications();
 		setUpUserInputs();
@@ -84,7 +84,7 @@ public class MetalpetModule extends SimpleModule {
 		}
 	}
 
-	private void setUpFiles() {
+	private void setUpFileMatchers() {
 		addDeserializer(FileTarget.class,
 			new PropertyMatchingDeserializer<>(FileTarget.class, ImmutableSet.of(
 				MatcherFileTarget.class

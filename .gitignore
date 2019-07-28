@@ -31,3 +31,6 @@ buildNumber.properties
 # IntelliJ IDREA
 .idea/
 *.iml
+
+# Metalpet
+metalpet.log

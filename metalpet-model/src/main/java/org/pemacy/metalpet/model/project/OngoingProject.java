@@ -32,7 +32,7 @@ public interface OngoingProject {
 	@JsonProperty("currentExecutionStep")
 	@NotNull(message = "Current execution step cannot be undefined.")
 	default ExecutionStep getCurrentExecutionStep() {
-		return ExecutionStep.DISPLAYING_PROJECT_INFO;
+		return ExecutionStep.READY_TO_EXECUTE;
 	}
 
 	@Value.Default

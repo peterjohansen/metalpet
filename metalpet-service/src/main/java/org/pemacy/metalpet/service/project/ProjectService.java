@@ -38,6 +38,8 @@ public class ProjectService {
 
 	public OngoingProject execute(OngoingProject ongoingProject) {
 		checkNotNull(ongoingProject);
+		checkArgument(ongoingProject.getCurrentExecutionStep() == ExecutionStep.READY_TO_EXECUTE,
+			"project is not in initial execution step");
 
 		LOGGER.info("Executing project: {}", ongoingProject);
 		ongoingProject = outputLoadedProjectInfo(ongoingProject);
@@ -69,7 +71,9 @@ public class ProjectService {
 
 	public OngoingProject startProject(Project projectModel) {
 		checkNotNull(projectModel);
-		return ImmutableOngoingProject.of(projectModel);
+		final var project = ImmutableOngoingProject.of(projectModel);
+		setStep(project, project.getCurrentExecutionStep());
+		return project;
 	}
 
 	private String buildUserInputPrompt(UserInput userInput) {
@@ -100,6 +104,9 @@ public class ProjectService {
 			outputService.printfln("Project requires %s %s.", inputs.size(), inputs.size() == 1 ? "input": "inputs");
 		}
 		outputService.println();
+
+		LOGGER.info("Project information displayed.");
+
 		return ongoingProject;
 	}
 
@@ -121,8 +128,8 @@ public class ProjectService {
 			outputService.println("No operations to perform!");
 		} else {
 			for (final var operation : projectModel.getOperations()) {
-				LOGGER.info("Performing operation: {}", operation.getIdentifier());
 				ongoingProject = setStep(ongoingProject, ExecutionStep.PERFORMING_OPERATION);
+				LOGGER.info("Performing operation: {}", operation.getIdentifier());
 				outputService.printfln("%s...", operation.getReport());
 
 
@@ -138,11 +145,12 @@ public class ProjectService {
 	private OngoingProject retrieveVariablesFromUserInputs(OngoingProject ongoingProject) {
 		final var variables = new HashMap<String, Object>();
 		for (final var userInput : ongoingProject.getProjectModel().getUserInputList()) {
-			LOGGER.info("Asking user for input: {}", userInput);
 			ongoingProject = setStep(ongoingProject, ExecutionStep.ASKING_FOR_INPUT);
+			LOGGER.info("Asking user for input: {}", userInput);
 			outputService.print(buildUserInputPrompt(userInput));
 
 			ongoingProject = setStep(ongoingProject, ExecutionStep.AWAITING_INPUT);
+			LOGGER.info("Waiting for input from user...");
 			final var inputValue = inputService.valueOrDefault(userInput, inputService.nextUserInput());
 
 			ongoingProject = setStep(ongoingProject, ExecutionStep.PROCESSING_INPUT);
@@ -156,8 +164,12 @@ public class ProjectService {
 	}
 
 	private OngoingProject setStep(OngoingProject ongoingProject, ExecutionStep step) {
-		assert step != ongoingProject.getCurrentExecutionStep();
-		LOGGER.info("Project execution step changed from {} to {}.", ongoingProject.getCurrentExecutionStep(), step);
+		if (step == ExecutionStep.READY_TO_EXECUTE) {
+			LOGGER.info("Project execution step changed to {}.", step);
+		} else {
+			assert step != ongoingProject.getCurrentExecutionStep();
+			LOGGER.info("Project execution step changed from {} to {}.", ongoingProject.getCurrentExecutionStep(), step);
+		}
 		ongoingProject.getExecutionListener().ifPresent(listener -> listener.onProjectExecutionStepChange(step));
 		return ImmutableOngoingProject.copyOf(ongoingProject).withCurrentExecutionStep(step);
 	}
