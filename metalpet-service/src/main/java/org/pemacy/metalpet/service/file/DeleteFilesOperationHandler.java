@@ -2,6 +2,8 @@ package org.pemacy.metalpet.service.file;
 
 import org.pemacy.metalpet.model.file.DeleteFilesOperation;
 import org.pemacy.metalpet.service.operation.OperationHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,10 +12,12 @@ import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@Component
 public class DeleteFilesOperationHandler implements OperationHandler<DeleteFilesOperation> {
 
 	private final FileService fileService;
 
+	@Autowired
 	public DeleteFilesOperationHandler(FileService fileService) {
 		this.fileService = Objects.requireNonNull(fileService);
 	}

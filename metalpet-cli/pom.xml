@@ -18,7 +18,7 @@
     <description>CLI to the application.</description>
 
 	<properties>
-		<mainClass>org.pemacy.metalpet.cli.Metalpet</mainClass>
+		<mainClass>org.pemacy.metalpet.cli.MetalpetLauncher</mainClass>
 	</properties>
 
     <dependencies>
@@ -46,6 +46,10 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>

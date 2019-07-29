@@ -5,32 +5,42 @@ import org.pemacy.metalpet.model.input.StandardInputType;
 import org.pemacy.metalpet.model.input.UserInput;
 import org.pemacy.metalpet.model.project.*;
 import org.pemacy.metalpet.service.input.InputService;
+import org.pemacy.metalpet.service.operation.OperationService;
 import org.pemacy.metalpet.service.output.OutputService;
+import org.pemacy.metalpet.service.project.exception.ProjectLoadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@Service
 public class ProjectService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProjectService.class);
 
 	private final InputService inputService;
 	private final OutputService outputService;
+	private final OperationService operationService;
 	private final ObjectMapper objectMapper;
 
-	public ProjectService(InputService inputService, OutputService outputService, ObjectMapper objectMapper) {
+	@Autowired
+	public ProjectService(InputService inputService,
+						  OutputService outputService,
+						  OperationService operationService,
+						  ObjectMapper objectMapper) {
 		this.inputService = checkNotNull(inputService);
 		this.outputService = checkNotNull(outputService);
+		this.operationService = checkNotNull(operationService);
 		this.objectMapper = checkNotNull(objectMapper);
 
 		LOGGER.info("Project service initialized.");
@@ -51,16 +61,23 @@ public class ProjectService {
 		return ongoingProject;
 	}
 
-	public Project parseProject(String fileName) throws IOException {
-		checkNotNull(fileName);
-		final var path = Paths.get(fileName).normalize().toAbsolutePath();
-		checkArgument(Files.exists(path), "file does not exist: " + path);
-		return parseProject(Files.newInputStream(path), path);
+	public Project parseProject(Path file) {
+		checkNotNull(file);
+		checkArgument(Files.exists(file), "file does not exist: " + file);
+		try {
+			return parseProject(Files.newInputStream(file), file);
+		} catch (IOException e) {
+			throw new ProjectLoadException(e);
+		}
 	}
 
-	public Project parseProject(InputStream inputStream) throws IOException {
+	public Project parseProject(InputStream inputStream) {
 		checkNotNull(inputStream);
-		return parseProject(inputStream, null);
+		try {
+			return parseProject(inputStream, null);
+		} catch (IOException e) {
+			throw new ProjectLoadException(e);
+		}
 	}
 
 	public OngoingProject setProjectExecutionListener(OngoingProject ongoingProject, ProjectExecutionListener listener) {
@@ -127,12 +144,13 @@ public class ProjectService {
 		if (projectModel.getOperations().isEmpty()) {
 			outputService.println("No operations to perform!");
 		} else {
+			final var rootDirectory = ongoingProject.getProjectModel().getProjectFile().orElseGet(() -> Path.of("."));
 			for (final var operation : projectModel.getOperations()) {
 				ongoingProject = setStep(ongoingProject, ExecutionStep.PERFORMING_OPERATION);
 				LOGGER.info("Performing operation: {}", operation.getIdentifier());
 				outputService.printfln("%s...", operation.getReport());
 
-
+				operationService.perform(rootDirectory, operation);
 
 				ongoingProject = setStep(ongoingProject, ExecutionStep.OPERATION_COMPLETE);
 				LOGGER.info("Operation complete: {}", operation.getIdentifier());
@@ -154,7 +172,7 @@ public class ProjectService {
 			final var inputValue = inputService.valueOrDefault(userInput, inputService.nextUserInput());
 
 			ongoingProject = setStep(ongoingProject, ExecutionStep.PROCESSING_INPUT);
-			final var parsedInputValue = inputService.parseInputvalue(userInput.getType(), inputValue);
+			final var parsedInputValue = inputService.parseInputValue(userInput.getType(), inputValue);
 			variables.put(userInput.getVariable(), parsedInputValue);
 			ongoingProject = ImmutableOngoingProject.copyOf(ongoingProject).withVariables(variables);
 			LOGGER.info("Variable created from user input: {} = {}", userInput.getVariable(), parsedInputValue);

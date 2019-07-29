@@ -15,8 +15,8 @@ import org.pemacy.metalpet.model.project.ImmutableProject;
 import org.pemacy.metalpet.model.project.Project;
 import org.pemacy.metalpet.model.string.ImmutableReplaceStringModification;
 import org.pemacy.metalpet.service.input.InputService;
+import org.pemacy.metalpet.service.operation.OperationService;
 import org.pemacy.metalpet.service.output.OutputService;
-import org.pemacy.metalpet.service.project.ProjectService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -39,7 +39,12 @@ public class ProjectServiceTest {
 			new GuavaModule(),
 			new MetalpetModule()
 		);
-		projectService = new ProjectService(mock(InputService.class), mock(OutputService.class), objectMapper);
+		projectService = new ProjectService(
+			mock(InputService.class),
+			mock(OutputService.class),
+			mock(OperationService.class),
+			objectMapper
+		);
 	}
 
 	@Test

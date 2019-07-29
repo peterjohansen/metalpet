@@ -5,10 +5,9 @@ import org.pemacy.metalpet.model.operation.Operation;
 import java.util.Optional;
 import java.util.function.Function;
 
-public interface OperationHandlerFunction<T extends Operation>
-	extends Function<Class<? extends T>, Optional<OperationHandler>> {
+public interface OperationHandlerFunction extends Function<Class<? extends Operation>, Optional<OperationHandler>> {
 
 	@Override
-	Optional<OperationHandler> apply(Class<? extends T> aClass);
+	Optional<OperationHandler> apply(Class<? extends Operation> type);
 
 }

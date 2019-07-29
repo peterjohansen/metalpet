@@ -2,6 +2,7 @@ package org.pemacy.metalpet.service.file;
 
 import org.pemacy.metalpet.model.file.FileTargetIgnore;
 import org.pemacy.metalpet.model.file.MatcherFileTarget;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -9,6 +10,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashSet;
 import java.util.Set;
 
+@Component
 public class MatcherFileTargetHandler implements FileTargetHandler<MatcherFileTarget> {
 
 	@Override

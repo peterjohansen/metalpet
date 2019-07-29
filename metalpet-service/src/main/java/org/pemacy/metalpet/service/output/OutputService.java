@@ -1,24 +1,28 @@
 package org.pemacy.metalpet.service.output;
 
-@FunctionalInterface
-public interface OutputService {
+import org.springframework.stereotype.Service;
 
-	void print(Object obj);
+@Service
+public class OutputService {
 
-	default void println() {
+	public void print(Object obj) {
+		System.out.print(obj);
+	}
+
+	public void println() {
 		println("");
 	}
 
-	default void println(Object obj) {
+	public void println(Object obj) {
 		print(obj);
 		print("\n");
 	}
 
-	default void printf(String messageFormat, Object... args) {
+	public void printf(String messageFormat, Object... args) {
 		print(String.format(messageFormat, args));
 	}
 
-	default void printfln(String messageFormat, Object... args) {
+	public void printfln(String messageFormat, Object... args) {
 		printf(messageFormat, args);
 		println();
 	}

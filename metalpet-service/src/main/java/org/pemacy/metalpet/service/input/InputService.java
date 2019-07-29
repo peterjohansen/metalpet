@@ -4,6 +4,7 @@ import org.pemacy.metalpet.model.input.InputType;
 import org.pemacy.metalpet.model.input.StandardInputType;
 import org.pemacy.metalpet.model.input.UserInput;
 import org.pemacy.metalpet.service.input.exception.*;
+import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.function.Function;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@Service
 public class InputService {
 
 	public boolean inputValueToBoolean(String inputValue) {
@@ -44,7 +46,7 @@ public class InputService {
 		return new Scanner(System.in, StandardCharsets.UTF_8).nextLine();
 	}
 
-	public Object parseInputvalue(InputType inputType, String inputValue) {
+	public Object parseInputValue(InputType inputType, String inputValue) {
 		checkNotNull(inputType);
 
 		// TODO Extract this to allow custom input types
