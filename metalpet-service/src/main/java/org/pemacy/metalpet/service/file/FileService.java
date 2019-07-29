@@ -1,6 +1,7 @@
 package org.pemacy.metalpet.service.file;
 
 import org.pemacy.metalpet.model.file.FileTarget;
+import org.pemacy.metalpet.model.file.exception.NoSuchFileTargetHandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class FileService {
 		checkNotNull(rootDirectory);
 		checkNotNull(fileTarget);
 		final var handler = fileTargetHandlerFunction.apply(fileTarget.getClass())
-			.orElseThrow(() -> new IllegalArgumentException("no handler for file target: " + fileTarget.getClass().getName()));
+			.orElseThrow(() -> new NoSuchFileTargetHandlerException(fileTarget.getClass()));
 		return handler.apply(rootDirectory, fileTarget);
 	}
 

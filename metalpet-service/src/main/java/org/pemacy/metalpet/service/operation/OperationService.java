@@ -1,6 +1,7 @@
 package org.pemacy.metalpet.service.operation;
 
 import org.pemacy.metalpet.model.operation.Operation;
+import org.pemacy.metalpet.model.operation.exception.NoSuchOperationHandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class OperationService {
 		checkNotNull(operation);
 
 		final var handler = operationHandlerFunction.apply(operation.getClass())
-			.orElseThrow(() -> new IllegalArgumentException("no handler for file target: " + operation.getClass().getName()));
+			.orElseThrow(() -> new NoSuchOperationHandlerException(operation.getClass()));
 		handler.accept(rootDirectory, operation);
 	}
 

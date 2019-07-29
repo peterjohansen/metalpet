@@ -1,6 +1,7 @@
 package org.pemacy.metalpet.service.string;
 
 import org.pemacy.metalpet.model.string.StringModification;
+import org.pemacy.metalpet.model.string.exception.NoSuchStringModificationHandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class StringService {
 		checkNotNull(original);
 		checkNotNull(modification);
 		final var handler = stringModificationHandlerFunction.apply(modification.getClass())
-			.orElseThrow(() -> new IllegalArgumentException("no handler for string modification: " + modification.getClass().getName()));
+			.orElseThrow(() -> new NoSuchStringModificationHandlerException(modification.getClass()));
 		return handler.apply(original, modification);
 	}
 
