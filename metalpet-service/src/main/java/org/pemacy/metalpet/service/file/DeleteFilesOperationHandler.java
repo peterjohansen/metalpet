@@ -1,6 +1,7 @@
 package org.pemacy.metalpet.service.file;
 
 import org.pemacy.metalpet.model.file.DeleteFilesOperation;
+import org.pemacy.metalpet.service.file.exception.DeleteFileException;
 import org.pemacy.metalpet.service.operation.OperationHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,7 @@ public class DeleteFilesOperationHandler implements OperationHandler<DeleteFiles
 				try {
 					Files.delete(path);
 				} catch (IOException e) {
-					throw new RuntimeException(e); // TODO
+					throw new DeleteFileException(path, operation, e);
 				}
 			})
 		);

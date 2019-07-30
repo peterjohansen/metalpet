@@ -2,6 +2,7 @@ package org.pemacy.metalpet.service.file;
 
 import org.pemacy.metalpet.model.file.FileTargetIgnore;
 import org.pemacy.metalpet.model.file.MatcherFileTarget;
+import org.pemacy.metalpet.service.file.exception.WalkFileTreeException;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class MatcherFileTargetHandler implements FileTargetHandler<MatcherFileTa
 
 				@Override
 				public FileVisitResult visitFileFailed(Path file, IOException exc) {
-					return FileVisitResult.TERMINATE;
+					throw new WalkFileTreeException(rootDirectory, file, exc);
 				}
 
 				@Override
@@ -42,7 +43,7 @@ public class MatcherFileTargetHandler implements FileTargetHandler<MatcherFileTa
 				}
 			});
 		} catch (IOException e) {
-			throw new RuntimeException(e); // TODO
+			throw new WalkFileTreeException(rootDirectory, null, e);
 		}
 
 		return matches;

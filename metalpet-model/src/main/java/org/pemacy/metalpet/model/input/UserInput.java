@@ -16,7 +16,7 @@ import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
 @Value.Style(validationMethod = VALIDATION_API)
 @JsonSerialize(as = ImmutableUserInput.class)
 @JsonDeserialize(as = ImmutableUserInput.class)
-@JsonPropertyOrder({ "prompt", "type", "variable", "optional", "defaultValue" })
+@JsonPropertyOrder({ "prompt", "type", "variable", "defaultValue" })
 public interface UserInput {
 
 	@NotBlank(message = "User input prompt is undefined, empty or blank.")
