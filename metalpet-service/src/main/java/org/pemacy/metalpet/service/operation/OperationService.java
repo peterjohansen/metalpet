@@ -1,7 +1,7 @@
 package org.pemacy.metalpet.service.operation;
 
 import org.pemacy.metalpet.model.operation.Operation;
-import org.pemacy.metalpet.model.operation.exception.NoSuchOperationHandlerException;
+import org.pemacy.metalpet.service.operation.exception.NoSuchOperationHandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

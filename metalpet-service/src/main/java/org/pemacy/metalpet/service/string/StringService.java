@@ -1,7 +1,7 @@
 package org.pemacy.metalpet.service.string;
 
 import org.pemacy.metalpet.model.string.StringModification;
-import org.pemacy.metalpet.model.string.exception.NoSuchStringModificationHandlerException;
+import org.pemacy.metalpet.service.string.exception.NoSuchStringModificationHandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

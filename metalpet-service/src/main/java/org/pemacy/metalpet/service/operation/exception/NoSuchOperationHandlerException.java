@@ -1,4 +1,4 @@
-package org.pemacy.metalpet.model.operation.exception;
+package org.pemacy.metalpet.service.operation.exception;
 
 import org.pemacy.metalpet.model.operation.Operation;
 

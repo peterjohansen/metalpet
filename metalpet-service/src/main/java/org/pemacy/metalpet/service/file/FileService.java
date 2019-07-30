@@ -1,7 +1,7 @@
 package org.pemacy.metalpet.service.file;
 
 import org.pemacy.metalpet.model.file.FileTarget;
-import org.pemacy.metalpet.model.file.exception.NoSuchFileTargetHandlerException;
+import org.pemacy.metalpet.service.file.exception.NoSuchFileTargetHandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

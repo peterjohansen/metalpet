@@ -1,4 +1,4 @@
-package org.pemacy.metalpet.model.string.exception;
+package org.pemacy.metalpet.service.string.exception;
 
 import org.pemacy.metalpet.model.string.StringModification;
 

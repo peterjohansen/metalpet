@@ -1,4 +1,4 @@
-package org.pemacy.metalpet.model.file.exception;
+package org.pemacy.metalpet.service.file.exception;
 
 import org.pemacy.metalpet.model.file.FileTarget;
 
