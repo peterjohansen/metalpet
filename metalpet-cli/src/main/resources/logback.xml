@@ -11,8 +11,9 @@
 		</encoder>
 	</appender>
 
-	<logger name="org.hibernate.validator" level="ERROR"/>
-	<logger name="org.jboss.logging" level="ERROR"/>
+	<logger name="org.springframework" level="WARN"/>
+	<logger name="org.hibernate.validator" level="WARN"/>
+	<logger name="org.jboss.logging" level="WARN"/>
 
 	<root level="debug">
 		<appender-ref ref="APPLOG"/>

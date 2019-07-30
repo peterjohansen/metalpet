@@ -78,7 +78,6 @@ public class ProjectServiceTest {
 						"\"prompt\": \"Enter desired Maven module directory prefix\"," +
 						"\"type\": \"string\"," +
 						"\"variable\": \"maven-module-directory-prefix\"," +
-						"\"optional\": true," +
 						"\"defaultValue\": null" +
 					"}" +
 				"]," +

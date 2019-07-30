@@ -2,6 +2,8 @@ package org.pemacy.metalpet.service.file;
 
 import org.pemacy.metalpet.model.file.DeleteFilesOperation;
 import org.pemacy.metalpet.service.operation.OperationHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Component
 public class DeleteFilesOperationHandler implements OperationHandler<DeleteFilesOperation> {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DeleteFilesOperationHandler.class);
+
 	private final FileService fileService;
 
 	@Autowired
@@ -26,6 +30,8 @@ public class DeleteFilesOperationHandler implements OperationHandler<DeleteFiles
 	public void accept(Path rootDirectory, DeleteFilesOperation operation) {
 		checkNotNull(rootDirectory);
 		checkNotNull(operation);
+
+		LOGGER.debug("Running with parameters: root directory = {}, operation = {}", rootDirectory, operation);
 
 		operation.getTargets().forEach(fileTarget ->
 			fileService.findFiles(rootDirectory, fileTarget).forEach(path -> {

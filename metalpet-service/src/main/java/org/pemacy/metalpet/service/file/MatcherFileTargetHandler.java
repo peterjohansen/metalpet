@@ -26,7 +26,7 @@ public class MatcherFileTargetHandler implements FileTargetHandler<MatcherFileTa
 
 				@Override
 				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-					addAllMatches(matches, file, fileTarget, Set.of(FileTargetIgnore.FILES));
+					addAllMatches(matches, rootDirectory, file, fileTarget, Set.of(FileTargetIgnore.FILES));
 					return FileVisitResult.CONTINUE;
 				}
 
@@ -37,7 +37,7 @@ public class MatcherFileTargetHandler implements FileTargetHandler<MatcherFileTa
 
 				@Override
 				public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
-					addAllMatches(matches, dir, fileTarget, Set.of(FileTargetIgnore.DIRECTORIES));
+					addAllMatches(matches, rootDirectory, dir, fileTarget, Set.of(FileTargetIgnore.DIRECTORIES));
 					return FileVisitResult.CONTINUE;
 				}
 			});
@@ -48,9 +48,14 @@ public class MatcherFileTargetHandler implements FileTargetHandler<MatcherFileTa
 		return matches;
 	}
 
-	private void addAllMatches(Set<Path> matches, Path path, MatcherFileTarget fileTarget, Set<FileTargetIgnore> ignores) {
+	private void addAllMatches(Set<Path> matches,
+							   Path rootDirectory,
+							   Path path,
+							   MatcherFileTarget fileTarget,
+							   Set<FileTargetIgnore> ignores) {
 		if (!ignores.contains(fileTarget.getIgnore())) {
-			final var pathMatcher = FileSystems.getDefault().getPathMatcher(fileTarget.getGlob());
+			final var resolvedGlob = rootDirectory.toString() + "/" + fileTarget.getGlob();
+			final var pathMatcher = FileSystems.getDefault().getPathMatcher("glob:" + fileTarget.getGlob());
 			if (pathMatcher.matches(path)) {
 				matches.add(path);
 			}
