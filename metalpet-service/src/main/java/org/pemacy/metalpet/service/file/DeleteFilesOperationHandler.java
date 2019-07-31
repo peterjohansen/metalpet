@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -36,13 +37,29 @@ public class DeleteFilesOperationHandler implements OperationHandler<DeleteFiles
 
 		operation.getTargets().forEach(fileTarget ->
 			fileService.findFiles(rootDirectory, fileTarget).forEach(path -> {
-				try {
-					Files.delete(path);
-				} catch (IOException e) {
-					throw new DeleteFileException(path, operation, e);
+				if (Files.isDirectory(path)) {
+					deleteDirectory(path, operation);
+				} else {
+					deleteFile(path, operation);
 				}
 			})
 		);
+	}
+
+	private void deleteDirectory(Path dir, DeleteFilesOperation operation) {
+		try {
+			Files.walk(dir).sorted(Comparator.reverseOrder()).forEach(path -> deleteFile(path, operation));
+		} catch (IOException e) {
+			throw new RuntimeException(e); // TODO
+		}
+	}
+
+	private void deleteFile(Path file, DeleteFilesOperation operation) {
+		try {
+			Files.delete(file);
+		} catch (IOException e) {
+			throw new DeleteFileException(file, operation, e);
+		}
 	}
 
 }

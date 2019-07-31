@@ -55,9 +55,10 @@ public class MatcherFileTargetHandler implements FileTargetHandler<MatcherFileTa
 							   MatcherFileTarget fileTarget,
 							   Set<FileTargetIgnore> ignores) {
 		if (!ignores.contains(fileTarget.getIgnore())) {
-			final var resolvedGlob = rootDirectory.toString() + "/" + fileTarget.getGlob();
-			final var pathMatcher = FileSystems.getDefault().getPathMatcher("glob:" + fileTarget.getGlob());
-			if (pathMatcher.matches(path)) {
+			final var relativizedPath = rootDirectory.relativize(path);
+			final var syntaxAndPattern = "glob:" + fileTarget.getGlob();
+			final var pathMatcher = FileSystems.getDefault().getPathMatcher(syntaxAndPattern);
+			if (pathMatcher.matches(relativizedPath)) {
 				matches.add(path);
 			}
 		}

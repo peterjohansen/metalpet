@@ -144,7 +144,8 @@ public class ProjectService {
 		if (projectModel.getOperations().isEmpty()) {
 			outputService.println("No operations to perform!");
 		} else {
-			final var rootDirectory = ongoingProject.getProjectModel().getProjectFile().orElseGet(() -> Path.of("."));
+			final var rootDirectory = ongoingProject.getProjectModel().getProjectFile()
+				.map(Path::getParent).orElseGet(() -> Path.of("."));
 			for (final var operation : projectModel.getOperations()) {
 				ongoingProject = setStep(ongoingProject, ExecutionStep.PERFORMING_OPERATION);
 				LOGGER.info("Performing operation: {}", operation.getIdentifier());
@@ -161,8 +162,9 @@ public class ProjectService {
 	}
 
 	private OngoingProject retrieveVariablesFromUserInputs(OngoingProject ongoingProject) {
+		final var userInputList = ongoingProject.getProjectModel().getUserInputList();
 		final var variables = new HashMap<String, Object>();
-		for (final var userInput : ongoingProject.getProjectModel().getUserInputList()) {
+		for (final var userInput : userInputList) {
 			ongoingProject = setStep(ongoingProject, ExecutionStep.ASKING_FOR_INPUT);
 			LOGGER.info("Asking user for input: {}", userInput);
 			outputService.print(buildUserInputPrompt(userInput));
@@ -177,7 +179,9 @@ public class ProjectService {
 			ongoingProject = ImmutableOngoingProject.copyOf(ongoingProject).withVariables(variables);
 			LOGGER.info("Variable created from user input: {} = {}", userInput.getVariable(), parsedInputValue);
 		}
-		outputService.println();
+		if (!userInputList.isEmpty()) {
+			outputService.println();
+		}
 		return ongoingProject;
 	}
 
