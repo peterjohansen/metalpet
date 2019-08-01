@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableSet;
 import org.pemacy.metalpet.model.file.DeleteFilesOperation;
-import org.pemacy.metalpet.model.file.FileNameSearchAndModifyOperation;
+import org.pemacy.metalpet.model.file.RenameFilesOperation;
 import org.pemacy.metalpet.model.file.FileTarget;
 import org.pemacy.metalpet.model.file.MatcherFileTarget;
 import org.pemacy.metalpet.model.input.InputType;
@@ -32,7 +32,7 @@ public class MetalpetModule extends SimpleModule {
 
 	private static final Map<OperationIdentifier, Class<? extends Operation>> OPERATION_MAP = Map.of(
 		StandardOperationIdentifier.DELETE_FILES, DeleteFilesOperation.class,
-		StandardOperationIdentifier.FILE_NAME_SEARCH_AND_MODIFY, FileNameSearchAndModifyOperation.class
+		StandardOperationIdentifier.RENAME_FILES, RenameFilesOperation.class
 	);
 
 	private final SimpleAbstractTypeResolver abstractTypeResolver = new SimpleAbstractTypeResolver();

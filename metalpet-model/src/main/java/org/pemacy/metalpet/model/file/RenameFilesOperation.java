@@ -20,11 +20,11 @@ import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
 
 @Value.Immutable
 @Value.Style(validationMethod = VALIDATION_API)
-@JsonSerialize(as = ImmutableFileNameSearchAndModifyOperation.class)
-@JsonDeserialize(as = ImmutableFileNameSearchAndModifyOperation.class)
+@JsonSerialize(as = ImmutableRenameFilesOperation.class)
+@JsonDeserialize(as = ImmutableRenameFilesOperation.class)
 @JsonIgnoreProperties(value = "type")
 @JsonPropertyOrder({ "report", "targets", "modifications" })
-public interface FileNameSearchAndModifyOperation extends Operation {
+public interface RenameFilesOperation extends Operation {
 
 	@Override
 	String getReport();
@@ -39,7 +39,7 @@ public interface FileNameSearchAndModifyOperation extends Operation {
 
 	@Override
 	default OperationIdentifier getIdentifier() {
-		return StandardOperationIdentifier.FILE_NAME_SEARCH_AND_MODIFY;
+		return StandardOperationIdentifier.RENAME_FILES;
 	}
 
 }

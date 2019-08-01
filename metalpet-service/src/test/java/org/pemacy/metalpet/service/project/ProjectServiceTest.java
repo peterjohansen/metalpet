@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.pemacy.metalpet.json.MetalpetModule;
 import org.pemacy.metalpet.model.file.FileTargetIgnore;
 import org.pemacy.metalpet.model.file.ImmutableDeleteFilesOperation;
-import org.pemacy.metalpet.model.file.ImmutableFileNameSearchAndModifyOperation;
+import org.pemacy.metalpet.model.file.ImmutableRenameFilesOperation;
 import org.pemacy.metalpet.model.file.ImmutableMatcherFileTarget;
 import org.pemacy.metalpet.model.input.ImmutableUserInput;
 import org.pemacy.metalpet.model.input.StandardInputType;
@@ -83,7 +83,7 @@ public class ProjectServiceTest {
 				"]," +
 				"\"operations\": [" +
 					"{" +
-						"\"type\": \"DELETE_FILES\"," +
+						"\"type\": \"delete-files\"," +
 						"\"report\": \"Deleting .git/ directory...\"," +
 						"\"targets\": [" +
 							"{" +
@@ -92,7 +92,7 @@ public class ProjectServiceTest {
 						"]" +
 					"}," +
 					"{" +
-						"\"type\": \"FILE_NAME_SEARCH_AND_MODIFY\"," +
+						"\"type\": \"rename-files\"," +
 						"\"report\": \"Renaming module directories...\"," +
 						"\"targets\": [" +
 							"{" +
@@ -132,7 +132,7 @@ public class ProjectServiceTest {
 				.build()
 		);
 		project.addOperations(
-			ImmutableFileNameSearchAndModifyOperation.builder()
+			ImmutableRenameFilesOperation.builder()
 				.report("Renaming module directories...")
 				.addTargets(ImmutableMatcherFileTarget.builder()
 					.glob("java-rest-skeleton-*")
