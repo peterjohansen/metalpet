@@ -14,6 +14,7 @@ import org.pemacy.metalpet.model.input.StandardInputType;
 import org.pemacy.metalpet.model.operation.Operation;
 import org.pemacy.metalpet.model.operation.OperationIdentifier;
 import org.pemacy.metalpet.model.operation.StandardOperationIdentifier;
+import org.pemacy.metalpet.model.output.ReportOperation;
 import org.pemacy.metalpet.model.string.ReplaceStringModification;
 import org.pemacy.metalpet.model.string.StringModification;
 import org.slf4j.Logger;
@@ -31,6 +32,7 @@ public class MetalpetModule extends SimpleModule {
 	private static final String NAME = "MetalpetModule";
 
 	private static final Map<OperationIdentifier, Class<? extends Operation>> OPERATION_MAP = Map.of(
+		StandardOperationIdentifier.REPORT, ReportOperation.class,
 		StandardOperationIdentifier.DELETE_FILES, DeleteFilesOperation.class,
 		StandardOperationIdentifier.RENAME_FILES, RenameFilesOperation.class
 	);

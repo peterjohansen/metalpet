@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum StandardOperationIdentifier implements OperationIdentifier {
 
+	@JsonProperty("report")
+	REPORT,
+
 	@JsonProperty("delete-files")
 	DELETE_FILES,
 

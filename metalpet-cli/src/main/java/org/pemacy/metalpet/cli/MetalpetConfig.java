@@ -5,12 +5,15 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import org.pemacy.metalpet.json.MetalpetModule;
 import org.pemacy.metalpet.model.file.DeleteFilesOperation;
 import org.pemacy.metalpet.model.file.MatcherFileTarget;
+import org.pemacy.metalpet.model.output.ReportOperation;
 import org.pemacy.metalpet.model.string.ReplaceStringModification;
 import org.pemacy.metalpet.service.file.DeleteFilesOperationHandler;
 import org.pemacy.metalpet.service.file.FileService;
 import org.pemacy.metalpet.service.file.FileTargetHandlerFunction;
 import org.pemacy.metalpet.service.file.MatcherFileTargetHandler;
 import org.pemacy.metalpet.service.operation.OperationHandlerFunction;
+import org.pemacy.metalpet.service.output.OutputService;
+import org.pemacy.metalpet.service.output.ReportOperationHandler;
 import org.pemacy.metalpet.service.string.ReplaceStringModificationHandler;
 import org.pemacy.metalpet.service.string.StringModificationHandlerFunction;
 import org.springframework.context.annotation.Bean;
@@ -63,9 +66,10 @@ public class MetalpetConfig {
 	}
 
 	@Bean
-	public OperationHandlerFunction getOperationHandlerFunction(FileService fileService) {
+	public OperationHandlerFunction getOperationHandlerFunction(OutputService outputService, FileService fileService) {
 		Objects.requireNonNull(fileService);
 		return type -> getHandler(type, Map.of(
+			ReportOperation.class, new ReportOperationHandler(outputService),
 			DeleteFilesOperation.class, new DeleteFilesOperationHandler(fileService)
 		));
 	}

@@ -149,7 +149,6 @@ public class ProjectService {
 			for (final var operation : projectModel.getOperations()) {
 				ongoingProject = setStep(ongoingProject, ExecutionStep.PERFORMING_OPERATION);
 				LOGGER.info("Performing operation: {}", operation.getIdentifier());
-				outputService.printfln("%s...", operation.getReport());
 
 				operationService.perform(rootDirectory, operation);
 

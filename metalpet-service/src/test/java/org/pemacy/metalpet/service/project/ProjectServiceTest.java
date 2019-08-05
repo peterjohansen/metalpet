@@ -84,7 +84,6 @@ public class ProjectServiceTest {
 				"\"operations\": [" +
 					"{" +
 						"\"type\": \"delete-files\"," +
-						"\"report\": \"Deleting .git/ directory...\"," +
 						"\"targets\": [" +
 							"{" +
 								"\"glob\": \".git/\"" +
@@ -93,7 +92,6 @@ public class ProjectServiceTest {
 					"}," +
 					"{" +
 						"\"type\": \"rename-files\"," +
-						"\"report\": \"Renaming module directories...\"," +
 						"\"targets\": [" +
 							"{" +
 								"\"glob\": \"java-rest-skeleton-*\"," +
@@ -127,13 +125,11 @@ public class ProjectServiceTest {
 		);
 		project.addOperations(
 			ImmutableDeleteFilesOperation.builder()
-				.report("Deleting .git/ directory...")
 				.addTargets(ImmutableMatcherFileTarget.builder().glob(".git/").build())
 				.build()
 		);
 		project.addOperations(
 			ImmutableRenameFilesOperation.builder()
-				.report("Renaming module directories...")
 				.addTargets(ImmutableMatcherFileTarget.builder()
 					.glob("java-rest-skeleton-*")
 					.ignore(FileTargetIgnore.FILES)

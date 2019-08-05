@@ -23,9 +23,6 @@ import java.util.List;
 @JsonPropertyOrder({ "report", "targets", "modifications" })
 public interface RenameFilesOperation extends Operation {
 
-	@Override
-	String getReport();
-
 	@NotEmpty(message = "List of targets cannot be undefined or empty.")
 	@JsonProperty("targets")
 	List<@NotNull @Valid FileTarget> getTargets();
