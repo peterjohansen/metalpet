@@ -2,7 +2,6 @@ package org.pemacy.metalpet.service.string;
 
 import org.junit.jupiter.api.Test;
 import org.pemacy.metalpet.model.string.ImmutableReplaceStringModification;
-import org.pemacy.metalpet.service.string.ReplaceStringModificationHandler;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
