@@ -10,10 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
-import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
-
 @Value.Immutable
-@Value.Style(validationMethod = VALIDATION_API)
 @JsonSerialize(as = ImmutableUserInput.class)
 @JsonDeserialize(as = ImmutableUserInput.class)
 @JsonPropertyOrder({ "prompt", "type", "variable", "defaultValue" })

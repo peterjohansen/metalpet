@@ -16,10 +16,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
-
 @Value.Immutable
-@Value.Style(validationMethod = VALIDATION_API)
 @JsonSerialize(as = ImmutableRenameFilesOperation.class)
 @JsonDeserialize(as = ImmutableRenameFilesOperation.class)
 @JsonIgnoreProperties(value = "type")

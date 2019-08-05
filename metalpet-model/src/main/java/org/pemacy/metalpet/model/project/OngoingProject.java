@@ -11,10 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
-
 @Value.Immutable
-@Value.Style(validationMethod = VALIDATION_API)
 @JsonSerialize(as = ImmutableOngoingProject.class)
 @JsonDeserialize(as = ImmutableOngoingProject.class)
 @JsonPropertyOrder({ "projectModel", "executionListener", "currentExecutionStep" })

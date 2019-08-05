@@ -16,10 +16,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
-import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
-
 @Value.Immutable
-@Value.Style(validationMethod = VALIDATION_API)
 @JsonSerialize(as = ImmutableProject.class)
 @JsonDeserialize(as = ImmutableProject.class)
 @JsonPropertyOrder({ "name", "projectFile", "input", "operation" })

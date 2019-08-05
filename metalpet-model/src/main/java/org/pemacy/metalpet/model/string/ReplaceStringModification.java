@@ -9,10 +9,7 @@ import org.immutables.value.Value;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
-
 @Value.Immutable
-@Value.Style(validationMethod = VALIDATION_API)
 @JsonSerialize(as = ImmutableReplaceStringModification.class)
 @JsonDeserialize(as = ImmutableReplaceStringModification.class)
 @JsonPropertyOrder({ "replace", "with" })

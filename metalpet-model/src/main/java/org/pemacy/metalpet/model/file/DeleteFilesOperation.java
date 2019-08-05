@@ -15,10 +15,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static org.immutables.value.Value.Style.ValidationMethod.VALIDATION_API;
-
 @Value.Immutable
-@Value.Style(validationMethod = VALIDATION_API)
 @JsonSerialize(as = ImmutableDeleteFilesOperation.class)
 @JsonDeserialize(as = ImmutableDeleteFilesOperation.class)
 @JsonIgnoreProperties(value = "type")
