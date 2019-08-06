@@ -6,13 +6,14 @@ import org.springframework.context.ApplicationContext;
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
-import java.util.Objects;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Metalpet {
 
 	public Metalpet(ApplicationContext context, MetalpetArguments config) {
-		Objects.requireNonNull(context);
-		Objects.requireNonNull(config);
+		checkNotNull(context);
+		checkNotNull(config);
 
 		disableIllegalAccessWarning(); // TODO Temporary to disable an annoying warning
 

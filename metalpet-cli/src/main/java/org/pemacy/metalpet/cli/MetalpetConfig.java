@@ -20,8 +20,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @Configuration
 public class MetalpetConfig {
@@ -67,7 +68,7 @@ public class MetalpetConfig {
 
 	@Bean
 	public OperationHandlerFunction getOperationHandlerFunction(OutputService outputService, FileService fileService) {
-		Objects.requireNonNull(fileService);
+		checkNotNull(fileService);
 		return type -> getHandler(type, Map.of(
 			ReportOperation.class, new ReportOperationHandler(outputService),
 			DeleteFilesOperation.class, new DeleteFilesOperationHandler(fileService)

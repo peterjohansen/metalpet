@@ -1,8 +1,9 @@
 package org.pemacy.metalpet.service.file.exception;
 
 import java.nio.file.Path;
-import java.util.Objects;
 import java.util.Optional;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WalkFileTreeException extends RuntimeException {
 
@@ -20,7 +21,7 @@ public class WalkFileTreeException extends RuntimeException {
 	private final Path specificPath;
 
 	public WalkFileTreeException(Path rootDirectory, Path specificPath, Throwable cause) {
-		super(buildMessage(Objects.requireNonNull(rootDirectory), specificPath), cause);
+		super(buildMessage(checkNotNull(rootDirectory), specificPath), cause);
 		this.rootDirectory = rootDirectory;
 		this.specificPath = specificPath;
 	}

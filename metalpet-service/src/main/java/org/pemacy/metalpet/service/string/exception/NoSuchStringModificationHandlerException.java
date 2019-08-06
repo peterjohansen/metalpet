@@ -2,14 +2,14 @@ package org.pemacy.metalpet.service.string.exception;
 
 import org.pemacy.metalpet.model.string.StringModification;
 
-import java.util.Objects;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class NoSuchStringModificationHandlerException extends RuntimeException {
 
 	private final Class<? extends StringModification> type;
 
 	public NoSuchStringModificationHandlerException(Class<? extends StringModification> type) {
-		super("no such string modification handler: " + Objects.requireNonNull(type));
+		super("no such string modification handler: " + checkNotNull(type));
 		this.type = type;
 	}
 

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
-import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -21,7 +20,7 @@ public class RenameFilesOperationHandler implements OperationHandler<RenameFiles
 
 	@Autowired
 	public RenameFilesOperationHandler(FileService fileService) {
-		this.fileService = Objects.requireNonNull(fileService);
+		this.fileService = checkNotNull(fileService);
 	}
 
 	@Override

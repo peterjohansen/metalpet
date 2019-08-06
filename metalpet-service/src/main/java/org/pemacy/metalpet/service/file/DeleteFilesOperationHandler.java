@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -25,7 +24,7 @@ public class DeleteFilesOperationHandler implements OperationHandler<DeleteFiles
 
 	@Autowired
 	public DeleteFilesOperationHandler(FileService fileService) {
-		this.fileService = Objects.requireNonNull(fileService);
+		this.fileService = checkNotNull(fileService);
 	}
 
 	@Override
