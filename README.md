@@ -1,13 +1,31 @@
-# Metalpet
-Metalpet is an application that performs file system operations described in a
-JSON file. Its original purpose was to initialize a Java project from a
-template by renaming the appropriate files and Java identifiers.
+<div align="center"><h1>metalpet</h1></div>
+<div align="center"><p>a tool for adopting templates in new projects</p></div>
 
-## Building
-### Prerequisites
-1. JDK 12
-2. Maven
+## About
 
-### Instructions
-1. Clone this repository and navigate to its root directory
-2. Execute `mvn clean install` to build it
+## Prerequisites
+
+Project-specific tasks are automated using
+[just](https://just.systems/man/en/packages.html).
+
+After cloning the repository, verify your local environment with:
+
+```shell
+just setup
+```
+
+## Common tasks
+
+The most essential commands in the project:
+
+- `just build` — Build the entire project
+
+For the full command reference, run:
+
+```shell
+just --list
+```
+
+## Documentation reference
+
+- [`specification.md`](docs/specification.md) - Main system specification
