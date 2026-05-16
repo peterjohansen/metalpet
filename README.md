@@ -10,7 +10,7 @@ Project-specific tasks are automated using
 
 After cloning the repository, verify your local environment with:
 
-```shell
+```sh
 just setup
 ```
 
@@ -22,10 +22,16 @@ The most essential commands in the project:
 
 For the full command reference, run:
 
-```shell
+```sh
 just --list
 ```
 
 ## Documentation reference
 
-- [`specification.md`](docs/specification.md) - Main system specification
+- [`template-recipe.md`](docs/philosophy.md) — Thoughts about the vision of
+  Metalpet
+- [`template-adoption.md`](docs/template-adoption.md) — The process of adopting
+  Metalpet templates as projects
+- [`philosophy.md`](docs/philosophy.md) — Thoughts about the vision of Metalpet
+- [`development-notes.md`](docs/development-notes.md) — Notes for the initial
+  development of Metalpet

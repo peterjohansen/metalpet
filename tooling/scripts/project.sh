@@ -32,7 +32,7 @@ placeholder_recipe() {
     }
 
     if [[ -z "$detail" ]]; then
-        detail="This recipe is not implemented for metalpet yet."
+        detail="This recipe is not implemented for Metalpet yet."
     fi
 
     error "$recipe: $detail"

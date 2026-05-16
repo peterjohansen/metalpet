@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "name": "Java/Maven Template",
+    "description": "A fictitious Java/Maven template project to illustrate Metalpet usage."
+  },
+  "variables": {
+    "projectName": {
+      "type": "string",
+      "description": "An official name of your project."
+    },
+    "groupId": {
+      "type": "string",
+      "description": "The Maven group ID for your project."
+    }
+  }
+}

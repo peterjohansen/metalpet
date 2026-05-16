@@ -13,6 +13,14 @@ setup:
     source tooling/scripts/project.sh
     check_all
 
+# Run the local build of Metalpet on an example project.
+[group('1. Essentials')]
+run-example:
+    #!/usr/bin/env bash
+    set -uo pipefail
+    placeholder_recipe run-example \
+        "Run example is not implemented for Metalpet yet because the project implementation has not been added."
+
 # ─── 2. Build ───────────────────────────────────────────────────────────
 
 # Build the project with tests.
@@ -23,7 +31,7 @@ build:
     set -euo pipefail
     source tooling/scripts/project.sh
     placeholder_recipe build \
-        "Build is not implemented for metalpet yet because the project implementation has not been added."
+        "Build is not implemented for Metalpet yet because the project implementation has not been added."
 
 # Build the project without running tests.
 [group('2. Build')]
@@ -33,7 +41,7 @@ build-fast:
     set -euo pipefail
     source tooling/scripts/project.sh
     placeholder_recipe build-fast \
-        "Fast build is not implemented for metalpet yet because the project implementation has not been added."
+        "Fast build is not implemented for Metalpet yet because the project implementation has not been added."
 
 # Remove all build artifacts.
 [group('2. Build')]
@@ -43,7 +51,7 @@ build-clean:
     set -euo pipefail
     source tooling/scripts/project.sh
     placeholder_recipe build-clean \
-        "Build cleanup is not implemented for metalpet yet because the project implementation has not been added."
+        "Build cleanup is not implemented for Metalpet yet because the project implementation has not been added."
 
 # ─── 3. Linting ─────────────────────────────────────────────────────────
 
@@ -80,11 +88,11 @@ test *pattern:
     #!/usr/bin/env bash
     set -euo pipefail
     source tooling/scripts/project.sh
-    pattern='{{pattern}}'
+    pattern='{{ pattern }}'
     if [[ -n "$pattern" ]]; then
         placeholder_recipe test \
-            "Testing is not implemented for metalpet yet. The requested pattern '$pattern' cannot be used until the project implementation exists."
+            "Testing is not implemented for Metalpet yet. The requested pattern '$pattern' cannot be used until the project implementation exists."
     else
         placeholder_recipe test \
-            "Testing is not implemented for metalpet yet because the project implementation has not been added."
+            "Testing is not implemented for Metalpet yet because the project implementation has not been added."
     fi

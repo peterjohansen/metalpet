@@ -8,7 +8,7 @@ Agentic instruction for metalpet.
 
 ## Commands
 
-```shell
+```sh
 just format # Format the codebase
 just format-check # Check formatting
 just --list # Full command reference
@@ -80,4 +80,11 @@ just --list # Full command reference
 Only read detailed documentation files if directly relevant to your current
 task. Do not load documents speculatively.
 
-- [`docs/specification.md`](docs/specification.md) - Main system specification
+- [`docs/template-recipe.md`](docs/philosophy.md) — Thoughts about the vision of
+  Metalpet
+- [`docs/template-adoption.md`](docs/template-adoption.md) — The process of
+  adopting Metalpet templates as projects
+- [`docs/philosophy.md`](docs/philosophy.md) — Thoughts about the vision of
+  Metalpet
+- [`docs/development-notes.md`](docs/development-notes.md) — Notes for the
+  initial development of Metalpet
