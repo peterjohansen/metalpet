@@ -51,9 +51,13 @@ run_markdown_formatter() {
             ;;
     esac
 
-    [[ -f "$PROJECT_ROOT/README.md" ]] && targets+=("$PROJECT_ROOT/README.md")
-    [[ -f "$PROJECT_ROOT/AGENTS.md" ]] && targets+=("$PROJECT_ROOT/AGENTS.md")
-    [[ -d "$PROJECT_ROOT/docs" ]] && targets+=("$PROJECT_ROOT/docs")
+    while IFS= read -r -d '' target; do
+        targets+=("$target")
+    done < <(
+        find "$PROJECT_ROOT" \
+            -type f \( -name "*.md" -o -name "*.markdown" \) \
+            -print0
+    )
 
     [[ "${#targets[@]}" -gt 0 ]] || {
         warn "No markdown files found to format."
