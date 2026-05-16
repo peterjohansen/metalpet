@@ -1,11 +1,14 @@
 # Template recipe
 
-A template recipe (or Metalpet recipe) is template-specific configuration
-describing tbe input and steps needed to adopt a template as a brand-new
-project.
+A template recipe, also called a Metalpet recipe, defines the input values and
+execution steps needed to adopt a template as a new project.
 
-The recipe file is usually found as `metalpet.json` in the root directory. A
-minimal example:
+By convention, the recipe file is named `metalpet.json` and lives in the
+template root. Other supported formats may use the same basename with a
+different extension, such as `metalpet.toml` or `metalpet.yaml`.
+
+This minimal example asks for a project name and location, derives a directory
+name, then copies the template into that directory:
 
 ```json
 {
@@ -36,7 +39,7 @@ minimal example:
       "name": "Establish project directory",
       "operations": [
         {
-          "operation": "file-copy",
+          "operation": "fileCopy",
           "sourceFile": ".",
           "targetFile": "${vars.projectLocation}/${vars.directoryName}"
         }
@@ -54,12 +57,17 @@ Metalpet supports template recipes in these formats:
 - TOML — `.toml`
 - YAML — `.yaml`, `.yml`
 
-The officially preferred and default format is JSON. Though, you are free to
-choose the format based on personal preference or other factors. Consider
-whether your template project and its platform/language ecosystem has a
-format preference for similar files.
+JSON is the officially preferred and default format. Other supported formats are
+available for templates whose ecosystem already favors TOML or YAML.
+
+## References
+
+String values may reference recipe variables using `${vars.<name>}`. Recipe
+paths are interpreted relative to the template root unless otherwise specified.
 
 ## Schemas
+
+A trailing `?` marks an optional property. Array types use `Type[]`.
 
 ### TemplateRecipe
 
@@ -77,28 +85,68 @@ Information about the template itself as a project.
 
 #### Properties
 
-- `name: String` — Name of the template
+- `name: String` — The display name of the template
 - `description: String?` — Description of the template
 
 ### VariableSet
 
-A set of variable assignments.
+A set of named input and derived values.
 
 #### Properties
 
-- `[key: String]: Value` — Zero or more key/value associations
+- `[key: String]: VariableDefinition` — Zero or more named variable definitions
+
+### VariableDefinition
+
+A value needed by the adoption process.
+
+Variables describe the required input, defaults, and derived values.
+
+#### Properties
+
+- `type: String?` — Type of input value
+- `format: String?` — Expected value format
+- `default: Value?` — Default value
+- `derived: ValueReference?` — Source value used to derive this variable
+- `transform: String?` — Transformation applied to the variable value
+- `description: String?` — Description of the variable
 
 ### ExecutionStep
 
-A group of logically-related operations part of a higher level process.
+A group of logically related operations that form part of a higher-level
+process.
 
 #### Properties
 
+- `name: String?` — Name of the step
 - `operations: Operation[]` — A list of operations that make up the step
 
 ### Operation
 
-An atomic action that performs a unit of work.
+A discriminated union of all supported operation types. Each operation is an
+atomic action that performs a unit of work.
+
+#### Properties
+
+- `operation: String` — Discriminator selecting the concrete operation type
+
+#### Variants
+
+- `"fileCopy"` — `FileCopyOperation`
+
+### FileCopyOperation
+
+Copies a file or directory.
+
+#### Type
+
+`Operation`
+
+#### Properties
+
+- `operation: "fileCopy"`
+- `sourceFile: String` — File or directory to copy
+- `targetFile: String` — Target file or directory
 
 ### TODO
 
