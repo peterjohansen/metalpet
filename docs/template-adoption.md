@@ -1,8 +1,8 @@
 # Template adoption
 
 Template adoption is the process of creating a new project from a template. This
-is the core system process of Metalpet, driven according to the rules defined
-by a [template-specific recipe](template-recipe.md).
+is the core system process of Metalpet, driven according to the rules defined by
+a [template-specific recipe](template-recipe.md).
 
 The high-level adoption process for a typical template:
 

@@ -60,4 +60,4 @@ Which in its full representation is actually:
 Metalpet should strive to remain as platform/OS independent as possible.
 Deviations from this rule should only occur in highly special cases where the
 value gained far outweighs the costs, or for truly platform-specific operations
-where anything else would be nonsensical. 
+where anything else would be nonsensical.

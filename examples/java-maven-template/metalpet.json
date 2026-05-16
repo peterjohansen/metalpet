@@ -6,11 +6,35 @@
   "variables": {
     "projectName": {
       "type": "string",
-      "description": "An official name of your project."
+      "default": "Untitled",
+      "description": "The official name of your project."
+    },
+    "projectLocation": {
+      "type": "string",
+      "format": "directory",
+      "default": "../",
+      "description": "The location of your project."
+    },
+    "directoryName": {
+      "derived": "${vars.projectName}",
+      "description": "The name of your project's main directory.",
+      "transform": "kebabCase"
     },
     "groupId": {
       "type": "string",
       "description": "The Maven group ID for your project."
     }
-  }
+  },
+  "steps": [
+    {
+      "name": "Establish project directory",
+      "operations": [
+        {
+          "operation": "fileCopy",
+          "sourceFile": ".",
+          "targetFile": "${vars.projectLocation}/${vars.directoryName}"
+        }
+      ]
+    }
+  ]
 }
